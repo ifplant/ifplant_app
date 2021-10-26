@@ -40,20 +40,26 @@ class _HomeState extends State<Home> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 336,
-                height: 336,
-                child: Image.network(
-                  'https://i.pinimg.com/originals/de/bb/ff/debbff2321788a6d4a7b3bb00237a76e.jpg',
-                  fit: BoxFit.cover,
+              Center(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  width: 336,
+                  height: 336,
+                  child: Image.network(
+                    'https://i.pinimg.com/originals/de/bb/ff/debbff2321788a6d4a7b3bb00237a76e.jpg',
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
-                '내 화분',
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
+              const Padding(
+                padding: EdgeInsets.only(left: 12),
+                child: Text(
+                  '내 화분',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
               const SizedBox(height: 16),
