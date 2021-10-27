@@ -1,110 +1,117 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:ifplant_app/app/ui/theme/app_color.dart';
 import 'package:ifplant_app/app/ui/theme/app_text_theme.dart';
 
-class Home extends StatefulWidget {
-  @override
-  State<Home> createState() => _HomeState();
-}
+class Home extends StatelessWidget {
+  const Home({Key? key}) : super(key: key);
 
-class _HomeState extends State<Home> {
-  Widget plantModel = Container(
-    margin: const EdgeInsets.only(right: 4),
-    height: 100,
-    width: 80,
-    color: Colors.red,
-  );
+  Widget _head() {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const SizedBox(width: 30),
+              Text(
+                '내공간',
+                style: baseTextStyle,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 5),
+                child: GestureDetector(onTap: () {}, child: const Text('완료')),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 
-  List<Widget> plants = [];
+  Widget _myspace() {
+    return Positioned(
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      child: Container(
+        height: 500,
+        child: Image.network(
+          'https://i.pinimg.com/originals/de/bb/ff/debbff2321788a6d4a7b3bb00237a76e.jpg',
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+
+  Widget _button() {
+    return ElevatedButton(
+      onPressed: () {},
+      child: const Icon(
+        Icons.add_circle,
+        size: 50,
+      ),
+      style: ElevatedButton.styleFrom(
+        primary: Colors.amber,
+      ),
+    );
+  }
+
+  Widget _addplant() {
+    return Container(
+      height: 200.0,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: <Widget>[
+          Container(
+            child: _button(),
+            width: 160.0,
+            color: Colors.red,
+          ),
+          Container(
+            width: 160.0,
+            color: Colors.blue,
+          ),
+          Container(
+            width: 160.0,
+            color: Colors.green,
+          ),
+          Container(
+            width: 160.0,
+            color: Colors.yellow,
+          ),
+          Container(
+            width: 160.0,
+            color: Colors.orange,
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _myplant() {
+    return Container(
+      height: 200,
+      width: 500,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _addplant(),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0.0,
-          centerTitle: true,
-          title: const Text('내공간', style: appBarTitleTextStyle),
-          actions: [
-            TextButton(
-              onPressed: () {},
-              child: const Text(
-                '완료',
-                style: appBarActionTextStyle,
-              ),
-            )
-          ],
-        ),
-        body: Center(
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  width: 336,
-                  height: 336,
-                  child: Image.network(
-                    'https://i.pinimg.com/originals/de/bb/ff/debbff2321788a6d4a7b3bb00237a76e.jpg',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              const Padding(
-                padding: EdgeInsets.only(left: 12),
-                child: Text(
-                  '내 화분',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 14),
-                height: 100,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: <Widget>[
-                      ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return plants[index];
-                        },
-                        itemCount: plants.length,
-                      ),
-                      plants.length < 10
-                          ? SizedBox(
-                              height: 46,
-                              width: 46,
-                              child: InkWell(
-                                child: const CircleAvatar(
-                                  child: Icon(
-                                    Icons.add,
-                                    color: Colors.white,
-                                  ),
-                                  backgroundColor: primaryColor,
-                                ),
-                                onTap: () {
-                                  Get.toNamed('/plant');
-                                  // setState(() {
-                                  //   plants.add(plantModel);
-                                  // });
-                                },
-                              ),
-                            )
-                          : Container(),
-                    ],
-                  ),
-                ),
-              )
+              _head(),
+              _myspace(),
+              _myplant(),
             ],
           ),
         ),

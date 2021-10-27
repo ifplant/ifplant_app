@@ -9,6 +9,6 @@ class Root extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO : 조건부 이동( 필요시 추가 )
-    return Home();
+    return const PlantScreen();
   }
 }
