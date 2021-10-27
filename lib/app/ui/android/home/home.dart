@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
 import 'package:ifplant_app/app/ui/theme/app_text_theme.dart';
 
@@ -92,9 +93,10 @@ class _HomeState extends State<Home> {
                                   backgroundColor: primaryColor,
                                 ),
                                 onTap: () {
-                                  setState(() {
-                                    plants.add(plantModel);
-                                  });
+                                  Get.toNamed('/plant');
+                                  // setState(() {
+                                  //   plants.add(plantModel);
+                                  // });
                                 },
                               ),
                             )
