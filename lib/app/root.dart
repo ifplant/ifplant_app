@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ifplant_app/app/ui/pages/plant_screen.dart';
-
-import 'ui/android/screens.dart' show Home;
+import 'ui/android/screens.dart' show Home, SelectPage;
 
 class Root extends StatelessWidget {
   const Root({Key? key}) : super(key: key);
@@ -9,6 +7,6 @@ class Root extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO : 조건부 이동( 필요시 추가 )
-    return const PlantScreen();
+    return const SelectPage();
   }
 }
