@@ -30,13 +30,29 @@ class Home extends GetWidget<HomeController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  width: 336,
-                  height: 336,
-                  child: Image.network(
-                    'https://i.pinimg.com/originals/de/bb/ff/debbff2321788a6d4a7b3bb00237a76e.jpg',
-                    fit: BoxFit.cover,
+                child: Obx(
+                  () => Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    width: 336,
+                    height: 336,
+                    child: controller.selectedImage.path.isNotEmpty
+                        ? Image.file(controller.selectedImage,
+                            fit: BoxFit.cover)
+                        : Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                  icon: const Icon(
+                                    Icons.add,
+                                    size: 40,
+                                  ),
+                                  onPressed: controller.pickSingleImage,
+                                ),
+                                const Text('배경 고르기'),
+                              ],
+                            ),
+                          ),
                   ),
                 ),
               ),
