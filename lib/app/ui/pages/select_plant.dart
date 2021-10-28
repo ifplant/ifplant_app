@@ -1,57 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ifplant_app/app/ui/android/components/select_plant_widget.dart';
+import 'package:ifplant_app/app/ui/pages/select_plant_detail.dart';
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
 import 'package:ifplant_app/app/ui/theme/app_text_theme.dart';
 
-class PlantScreen extends StatelessWidget {
-  const PlantScreen({Key? key}) : super(key: key);
-
-  Widget _selectplant(String name, String path, void Function()? ontap) {
-    return Expanded(
-        child: GridView.builder(
-      itemCount: 10,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        childAspectRatio: 0.6,
-        crossAxisCount: 2,
-      ),
-      itemBuilder: (context, index) {
-        return Center(
-          child: Column(
-            children: [
-              GestureDetector(
-                onTap: ontap,
-                child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 3),
-                  child: Image.asset(path),
-                  height: 300,
-                ),
-              ),
-              Text(name),
-            ],
-          ),
-        );
-      },
-    ));
-  }
-
-  Widget _plant() {
-    return Expanded(
-        child: GridView.builder(
-      itemCount: 10,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        childAspectRatio: 0.8,
-        crossAxisCount: 2,
-      ),
-      itemBuilder: (context, index) {
-        return Center(
-          child: Container(
-            margin: const EdgeInsets.all(10),
-            height: 500,
-            color: Colors.amber,
-          ),
-        );
-      },
-    ));
-  }
+class SelectPlant extends StatelessWidget {
+  const SelectPlant({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +24,12 @@ class PlantScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            _selectplant('예제화분', 'assets/images/sample_plant.png', () {}),
+            SelectPlantWidget(
+                name: '예제화분',
+                path: 'assets/images/sample_plant.png',
+                ontap: () {
+                  Get.toNamed('plant_detail');
+                }),
           ],
         ),
       ),

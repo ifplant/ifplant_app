@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ifplant_app/app/ui/theme/app_text_theme.dart';
 
 class Home extends StatelessWidget {
@@ -46,7 +47,9 @@ class Home extends StatelessWidget {
 
   Widget _button() {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        Get.toNamed('/plant');
+      },
       child: const Icon(
         Icons.add_circle,
         size: 50,
