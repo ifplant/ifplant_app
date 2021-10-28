@@ -1,22 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:ifplant_app/app/controller/home/home_controller.dart';
+import 'package:ifplant_app/app/data/model/home/plant_model.dart';
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
 import 'package:ifplant_app/app/ui/theme/app_text_theme.dart';
 
-class Home extends StatefulWidget {
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  Widget plantModel = Container(
-    margin: const EdgeInsets.only(right: 4),
-    height: 100,
-    width: 80,
-    color: Colors.red,
-  );
-
-  List<Widget> plants = [];
-
+class Home extends GetWidget<HomeController> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -66,42 +55,58 @@ class _HomeState extends State<Home> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 14),
                 height: 100,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: <Widget>[
-                      ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return plants[index];
-                        },
-                        itemCount: plants.length,
-                      ),
-                      plants.length < 10
-                          ? SizedBox(
-                              height: 46,
-                              width: 46,
-                              child: InkWell(
-                                child: const CircleAvatar(
-                                  child: Icon(
-                                    Icons.add,
-                                    color: Colors.white,
+                child: Obx(() => SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: <Widget>[
+                          ReorderableListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            onReorder: (oldIndex, newIndex) {
+                              if (oldIndex < newIndex) {
+                                newIndex--;
+                              }
+                              final item =
+                                  controller.selectedPlants.removeAt(oldIndex);
+                              controller.addPlant(item, index: newIndex);
+                            },
+                            itemBuilder: (context, index) {
+                              return Container(
+                                key: Key('$index'),
+                                margin: const EdgeInsets.only(right: 4),
+                                height: 100,
+                                width: 80,
+                                color: Colors.red,
+                                child:
+                                    Text(controller.selectedPlants[index].name),
+                              );
+                            },
+                            itemCount: controller.selectedPlants.length,
+                          ),
+                          controller.selectedPlants.length < 10
+                              ? SizedBox(
+                                  height: 46,
+                                  width: 46,
+                                  child: InkWell(
+                                    child: const CircleAvatar(
+                                      child: Icon(
+                                        Icons.add,
+                                        color: Colors.white,
+                                      ),
+                                      backgroundColor: primaryColor,
+                                    ),
+                                    onTap: () {
+                                      controller.addPlant(Plant(
+                                          name: controller.selectedPlants.length
+                                              .toString()));
+                                    },
                                   ),
-                                  backgroundColor: primaryColor,
-                                ),
-                                onTap: () {
-                                  setState(() {
-                                    plants.add(plantModel);
-                                  });
-                                },
-                              ),
-                            )
-                          : Container(),
-                    ],
-                  ),
-                ),
+                                )
+                              : Container(),
+                        ],
+                      ),
+                    )),
               )
             ],
           ),
