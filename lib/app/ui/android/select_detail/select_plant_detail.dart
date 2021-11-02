@@ -19,33 +19,37 @@ class SelectPlantDetail extends StatelessWidget {
         ),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const SizedBox(height: 50),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('assets/images/sample_plant.png'),
-            ],
+          Center(
+            child: Container(
+              width: 242,
+              height: 242,
+              child: Image.asset('assets/images/sample_plant.png'),
+            ),
           ),
           const SizedBox(height: 20),
-          Text(
-            '화분명 : 싱고니움',
-            style: TextStyle(fontSize: 16),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            '높이 : ',
-            style: TextStyle(fontSize: 16),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            '가격 : ',
-            style: TextStyle(fontSize: 16),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            '관리난이도 : ',
-            style: TextStyle(fontSize: 16),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const <Widget>[
+              Text(
+                '화분명 : 싱고니움',
+                style: TextStyle(fontSize: 16),
+              ),
+              Text(
+                '높이 : 100cm',
+                style: TextStyle(fontSize: 16),
+              ),
+              Text(
+                '가격 : 70,000',
+                style: TextStyle(fontSize: 16),
+              ),
+              Text(
+                '관리난이도 : 하',
+                style: TextStyle(fontSize: 16),
+              ),
+            ],
           ),
           Padding(
             padding: const EdgeInsets.only(top: 40.0),
