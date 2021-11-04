@@ -28,9 +28,15 @@ class HomeController extends GetxController {
     }
   }
 
+  removePlant(int index) {
+    _selectedPlants.removeAt(index);
+  }
+
   Future pickSingleImage() async {
     await _picker.pickImage(source: ImageSource.gallery).then((value) {
-      _selectedImage(File(value!.path));
+      if (value != null) {
+        _selectedImage(File(value.path));
+      }
     });
   }
 }

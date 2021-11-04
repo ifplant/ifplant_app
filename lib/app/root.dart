@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ifplant_app/app/ui/android/select/select_plant.dart';
 
 import 'ui/android/screens.dart' show Home;
 

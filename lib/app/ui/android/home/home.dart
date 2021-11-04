@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:ifplant_app/app/controller/home/home_controller.dart';
 import 'package:ifplant_app/app/data/model/home/plant_model.dart';
+import 'package:ifplant_app/app/route/app_pages.dart';
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
 import 'package:ifplant_app/app/ui/theme/app_text_theme.dart';
 
@@ -33,8 +35,8 @@ class Home extends GetWidget<HomeController> {
                 child: Obx(
                   () => Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
-                    width: 336,
-                    height: 336,
+                    width: Get.size.width * 0.85,
+                    height: Get.size.width * 0.85,
                     child: controller.selectedImage.path.isNotEmpty
                         ? Image.file(controller.selectedImage,
                             fit: BoxFit.cover)
@@ -70,7 +72,7 @@ class Home extends GetWidget<HomeController> {
               const SizedBox(height: 16),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 14),
-                height: 100,
+                height: 120,
                 child: Obx(() => SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -88,20 +90,43 @@ class Home extends GetWidget<HomeController> {
                               controller.addPlant(item, index: newIndex);
                             },
                             itemBuilder: (context, index) {
-                              return Container(
+                              return Stack(
                                 key: Key('$index'),
-                                margin: const EdgeInsets.only(right: 4),
-                                height: 100,
-                                width: 80,
-                                color: Colors.red,
-                                child:
-                                    Text(controller.selectedPlants[index].name),
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                        right: 5, left: 5, top: 10),
+                                    height: 110,
+                                    width: 80,
+                                    color: Colors.red,
+                                    child: Text(
+                                        controller.selectedPlants[index].name),
+                                  ),
+                                  Positioned(
+                                    child: Align(
+                                      alignment: Alignment.topLeft,
+                                      child: InkWell(
+                                        child: const CircleAvatar(
+                                          child: Center(
+                                            child: Icon(Icons.close, size: 15),
+                                          ),
+                                          radius: 13,
+                                          backgroundColor: primaryColor,
+                                        ),
+                                        onTap: () {
+                                          controller.removePlant(index);
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               );
                             },
                             itemCount: controller.selectedPlants.length,
                           ),
                           controller.selectedPlants.length < 10
-                              ? SizedBox(
+                              ? Container(
+                                  margin: const EdgeInsets.only(left: 10),
                                   height: 46,
                                   width: 46,
                                   child: InkWell(
@@ -113,9 +138,7 @@ class Home extends GetWidget<HomeController> {
                                       backgroundColor: primaryColor,
                                     ),
                                     onTap: () {
-                                      controller.addPlant(Plant(
-                                          name: controller.selectedPlants.length
-                                              .toString()));
+                                      Get.toNamed(Routes.PLANT);
                                     },
                                   ),
                                 )
