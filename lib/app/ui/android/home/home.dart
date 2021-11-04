@@ -37,24 +37,36 @@ class Home extends GetWidget<HomeController> {
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     width: Get.size.width * 0.85,
                     height: Get.size.width * 0.85,
-                    child: controller.selectedImage.path.isNotEmpty
-                        ? Image.file(controller.selectedImage,
-                            fit: BoxFit.cover)
-                        : Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.add,
-                                    size: 40,
-                                  ),
-                                  onPressed: controller.pickSingleImage,
-                                ),
-                                const Text('배경 고르기'),
-                              ],
-                            ),
-                          ),
+                    child: DragTarget(
+                      builder: (context, candiated, rejected) {
+                        return Image.asset(
+                          "assets/images/sample_plant.png",
+                          // fit: BoxFit.cover,
+                        );
+                      },
+                      onWillAccept: (data) {
+                        return controller.selectedPlants.contains(data);
+                      },
+                    ),
+                    // child: controller.selectedImage.path.isNotEmpty
+                    //     ? Image.file(controller.selectedImage,
+                    //         fit: BoxFit.cover)
+
+                    //     : Center(
+                    //         child: Column(
+                    //           mainAxisAlignment: MainAxisAlignment.center,
+                    //           children: [
+                    //             IconButton(
+                    //               icon: const Icon(
+                    //                 Icons.add,
+                    //                 size: 40,
+                    //               ),
+                    //               onPressed: controller.pickSingleImage,
+                    //             ),
+                    //             const Text('배경 고르기'),
+                    //           ],
+                    //         ),
+                    //       ),
                   ),
                 ),
               ),
@@ -90,36 +102,53 @@ class Home extends GetWidget<HomeController> {
                               controller.addPlant(item, index: newIndex);
                             },
                             itemBuilder: (context, index) {
-                              return Stack(
+                              return Draggable(
                                 key: Key('$index'),
-                                children: [
-                                  Container(
-                                    margin: const EdgeInsets.only(
-                                        right: 5, left: 5, top: 10),
-                                    height: 110,
-                                    width: 80,
-                                    color: Colors.red,
-                                    child: Text(
-                                        controller.selectedPlants[index].name),
-                                  ),
-                                  Positioned(
-                                    child: Align(
-                                      alignment: Alignment.topLeft,
-                                      child: InkWell(
-                                        child: const CircleAvatar(
-                                          child: Center(
-                                            child: Icon(Icons.close, size: 15),
+                                data: controller.selectedPlants[index].name,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(
+                                          right: 5, left: 5, top: 10),
+                                      height: 110,
+                                      width: 80,
+                                      color: Colors.red,
+                                      child: Text(controller
+                                          .selectedPlants[index].name),
+                                    ),
+                                    Positioned(
+                                      child: Align(
+                                        alignment: Alignment.topLeft,
+                                        child: InkWell(
+                                          child: const CircleAvatar(
+                                            child: Center(
+                                              child:
+                                                  Icon(Icons.close, size: 15),
+                                            ),
+                                            radius: 13,
+                                            backgroundColor: primaryColor,
                                           ),
-                                          radius: 13,
-                                          backgroundColor: primaryColor,
+                                          onTap: () {
+                                            controller.removePlant(index);
+                                          },
                                         ),
-                                        onTap: () {
-                                          controller.removePlant(index);
-                                        },
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
+                                feedback: Stack(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(
+                                          right: 5, left: 5, top: 10),
+                                      height: 110,
+                                      width: 80,
+                                      color: Colors.red,
+                                      child: Text(controller
+                                          .selectedPlants[index].name),
+                                    ),
+                                  ],
+                                ),
                               );
                             },
                             itemCount: controller.selectedPlants.length,

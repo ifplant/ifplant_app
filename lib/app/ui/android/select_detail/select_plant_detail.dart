@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ifplant_app/app/controller/home/home_controller.dart';
+import 'package:ifplant_app/app/data/model/home/plant_model.dart';
+import 'package:ifplant_app/app/route/app_pages.dart';
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
 import 'package:ifplant_app/app/ui/theme/app_text_theme.dart';
 
@@ -59,7 +63,10 @@ class SelectPlantDetail extends StatelessWidget {
                   minimumSize: const Size(300, 30),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30))),
-              onPressed: () {},
+              onPressed: () {
+                HomeController.to.addPlant(Plant(name: 'eeee'));
+                Get.offAndToNamed(Routes.INITIAL);
+              },
               child: const Padding(
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: Text(
