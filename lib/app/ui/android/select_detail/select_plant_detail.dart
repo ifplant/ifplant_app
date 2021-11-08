@@ -64,7 +64,7 @@ class SelectPlantDetail extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30))),
               onPressed: () {
-                HomeController.to.addPlant(Plant(name: 'eeee'));
+                // HomeController.to.addPlant(Plant(id: 1));
                 Get.offAndToNamed(Routes.INITIAL);
               },
               child: const Padding(
