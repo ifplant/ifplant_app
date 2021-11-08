@@ -1,120 +1,181 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:ifplant_app/app/controller/home/home_controller.dart';
+import 'package:ifplant_app/app/data/model/home/plant_model.dart';
+import 'package:ifplant_app/app/route/app_pages.dart';
+import 'package:ifplant_app/app/ui/theme/app_color.dart';
 import 'package:ifplant_app/app/ui/theme/app_text_theme.dart';
 
-class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
-
-  Widget _head() {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const SizedBox(width: 30),
-              Text(
-                '내공간',
-                style: baseTextStyle,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 5),
-                child: GestureDetector(onTap: () {}, child: const Text('완료')),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _myspace() {
-    return Positioned(
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      child: Container(
-        height: 500,
-        child: Image.network(
-          'https://i.pinimg.com/originals/de/bb/ff/debbff2321788a6d4a7b3bb00237a76e.jpg',
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
-
-  Widget _button() {
-    return ElevatedButton(
-      onPressed: () {
-        Get.toNamed('/plant');
-      },
-      child: const Icon(
-        Icons.add_circle,
-        size: 50,
-      ),
-      style: ElevatedButton.styleFrom(
-        primary: Colors.amber,
-      ),
-    );
-  }
-
-  Widget _addplant() {
-    return Container(
-      height: 200.0,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: <Widget>[
-          Container(
-            child: _button(),
-            width: 160.0,
-            color: Colors.red,
-          ),
-          Container(
-            width: 160.0,
-            color: Colors.blue,
-          ),
-          Container(
-            width: 160.0,
-            color: Colors.green,
-          ),
-          Container(
-            width: 160.0,
-            color: Colors.yellow,
-          ),
-          Container(
-            width: 160.0,
-            color: Colors.orange,
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget _myplant() {
-    return Container(
-      height: 200,
-      width: 500,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _addplant(),
-        ],
-      ),
-    );
-  }
-
+class Home extends GetWidget<HomeController> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0.0,
+          centerTitle: true,
+          title: const Text('내공간', style: appBarTitleTextStyle),
+          actions: [
+            TextButton(
+              onPressed: () {},
+              child: const Text(
+                '완료',
+                style: appBarActionTextStyle,
+              ),
+            )
+          ],
+        ),
+        body: Center(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _head(),
-              _myspace(),
-              _myplant(),
+              Center(
+                child: Obx(
+                  () => Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    width: Get.size.width * 0.85,
+                    height: Get.size.width * 0.85,
+                    child: DragTarget(
+                      builder: (context, candiated, rejected) {
+                        return Image.asset(
+                          "assets/images/sample_plant.png",
+                          // fit: BoxFit.cover,
+                        );
+                      },
+                      onWillAccept: (data) {
+                        return controller.selectedPlants.contains(data);
+                      },
+                    ),
+                    // child: controller.selectedImage.path.isNotEmpty
+                    //     ? Image.file(controller.selectedImage,
+                    //         fit: BoxFit.cover)
+
+                    //     : Center(
+                    //         child: Column(
+                    //           mainAxisAlignment: MainAxisAlignment.center,
+                    //           children: [
+                    //             IconButton(
+                    //               icon: const Icon(
+                    //                 Icons.add,
+                    //                 size: 40,
+                    //               ),
+                    //               onPressed: controller.pickSingleImage,
+                    //             ),
+                    //             const Text('배경 고르기'),
+                    //           ],
+                    //         ),
+                    //       ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              const Padding(
+                padding: EdgeInsets.only(left: 12),
+                child: Text(
+                  '내 화분',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 14),
+                height: 120,
+                child: Obx(() => SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: <Widget>[
+                          ReorderableListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            onReorder: (oldIndex, newIndex) {
+                              if (oldIndex < newIndex) {
+                                newIndex--;
+                              }
+                              final item =
+                                  controller.selectedPlants.removeAt(oldIndex);
+                              controller.addPlant(item, index: newIndex);
+                            },
+                            itemBuilder: (context, index) {
+                              return Draggable(
+                                key: Key('$index'),
+                                data: controller.selectedPlants[index].name,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(
+                                          right: 5, left: 5, top: 10),
+                                      height: 110,
+                                      width: 80,
+                                      color: Colors.red,
+                                      child: Text(controller
+                                          .selectedPlants[index].name),
+                                    ),
+                                    Positioned(
+                                      child: Align(
+                                        alignment: Alignment.topLeft,
+                                        child: InkWell(
+                                          child: const CircleAvatar(
+                                            child: Center(
+                                              child:
+                                                  Icon(Icons.close, size: 15),
+                                            ),
+                                            radius: 13,
+                                            backgroundColor: primaryColor,
+                                          ),
+                                          onTap: () {
+                                            controller.removePlant(index);
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                feedback: Stack(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(
+                                          right: 5, left: 5, top: 10),
+                                      height: 110,
+                                      width: 80,
+                                      color: Colors.red,
+                                      child: Text(controller
+                                          .selectedPlants[index].name),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                            itemCount: controller.selectedPlants.length,
+                          ),
+                          controller.selectedPlants.length < 10
+                              ? Container(
+                                  margin: const EdgeInsets.only(left: 10),
+                                  height: 46,
+                                  width: 46,
+                                  child: InkWell(
+                                    child: const CircleAvatar(
+                                      child: Icon(
+                                        Icons.add,
+                                        color: Colors.white,
+                                      ),
+                                      backgroundColor: primaryColor,
+                                    ),
+                                    onTap: () {
+                                      Get.toNamed(Routes.PLANT);
+                                    },
+                                  ),
+                                )
+                              : Container(),
+                        ],
+                      ),
+                    )),
+              )
             ],
           ),
         ),
