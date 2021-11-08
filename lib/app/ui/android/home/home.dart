@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:ifplant_app/app/controller/home/home_controller.dart';
-import 'package:ifplant_app/app/data/model/home/plant_model.dart';
 import 'package:ifplant_app/app/route/app_pages.dart';
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
 import 'package:ifplant_app/app/ui/theme/app_text_theme.dart';
@@ -32,41 +31,38 @@ class Home extends GetWidget<HomeController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
-                child: Obx(
-                  () => Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    width: Get.size.width * 0.85,
-                    height: Get.size.width * 0.85,
-                    child: DragTarget(
-                      builder: (context, candiated, rejected) {
-                        return Image.asset(
-                          "assets/images/sample_plant.png",
-                          // fit: BoxFit.cover,
-                        );
-                      },
-                      onWillAccept: (data) {
-                        return controller.selectedPlants.contains(data);
-                      },
-                    ),
-                    // child: controller.selectedImage.path.isNotEmpty
-                    //     ? Image.file(controller.selectedImage,
-                    //         fit: BoxFit.cover)
-
-                    //     : Center(
-                    //         child: Column(
-                    //           mainAxisAlignment: MainAxisAlignment.center,
-                    //           children: [
-                    //             IconButton(
-                    //               icon: const Icon(
-                    //                 Icons.add,
-                    //                 size: 40,
-                    //               ),
-                    //               onPressed: controller.pickSingleImage,
-                    //             ),
-                    //             const Text('배경 고르기'),
-                    //           ],
-                    //         ),
-                    //       ),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  width: Get.size.width * 0.85,
+                  height: Get.size.width * 0.85,
+                  child: DragTarget(
+                    builder: (context, candiated, rejected) {
+                      return Obx(
+                        () => controller.selectedImage.path.isNotEmpty
+                            ? Image.file(
+                                controller.selectedImage,
+                                fit: BoxFit.cover,
+                              )
+                            : Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(
+                                        Icons.add,
+                                        size: 40,
+                                      ),
+                                      onPressed: controller.pickSingleImage,
+                                    ),
+                                    const Text('배경 고르기'),
+                                  ],
+                                ),
+                              ),
+                      );
+                    },
+                    onWillAccept: (data) {
+                      return controller.selectedPlants.contains(data);
+                    },
                   ),
                 ),
               ),
