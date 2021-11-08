@@ -32,6 +32,13 @@ class HomeController extends GetxController {
     _selectedPlants.removeAt(index);
   }
 
+  toggleDrageItem(int itemId) {
+    final findId =
+        _selectedPlants.firstWhere((element) => element.id == itemId);
+    findId.isDraged = true;
+    update();
+  }
+
   Future pickSingleImage() async {
     await _picker.pickImage(source: ImageSource.gallery).then((value) {
       if (value != null) {

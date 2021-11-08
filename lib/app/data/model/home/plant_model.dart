@@ -20,4 +20,5 @@ class Plant {
   final String temperature;
   final String description;
   final Uint8List image;
+  bool isDraged = false;
 }

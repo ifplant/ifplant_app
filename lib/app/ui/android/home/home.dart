@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:ifplant_app/app/controller/home/home_controller.dart';
+import 'package:ifplant_app/app/data/model/home/plant_model.dart';
 import 'package:ifplant_app/app/route/app_pages.dart';
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
 import 'package:ifplant_app/app/ui/theme/app_text_theme.dart';
@@ -61,7 +62,12 @@ class Home extends GetWidget<HomeController> {
                       );
                     },
                     onWillAccept: (data) {
-                      return controller.selectedPlants.contains(data);
+                      return controller.selectedPlants
+                          .where((element) => element.id == data)
+                          .isNotEmpty;
+                    },
+                    onAccept: (int data) {
+                      controller.toggleDrageItem(data);
                     },
                   ),
                 ),
@@ -81,26 +87,28 @@ class Home extends GetWidget<HomeController> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 14),
                 height: 120,
-                child: Obx(() => SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: <Widget>[
-                          ReorderableListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            onReorder: (oldIndex, newIndex) {
-                              if (oldIndex < newIndex) {
-                                newIndex--;
-                              }
-                              final item =
-                                  controller.selectedPlants.removeAt(oldIndex);
-                              controller.addPlant(item, index: newIndex);
-                            },
-                            itemBuilder: (context, index) {
-                              return Draggable(
-                                key: Key('$index'),
-                                data: controller.selectedPlants[index].name,
+                child: GetBuilder<HomeController>(builder: (_) {
+                  return SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: <Widget>[
+                        ReorderableListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          onReorder: (oldIndex, newIndex) {
+                            if (oldIndex < newIndex) {
+                              newIndex--;
+                            }
+                            final item = _.selectedPlants.removeAt(oldIndex);
+                            _.addPlant(item, index: newIndex);
+                          },
+                          itemBuilder: (context, index) {
+                            return Draggable(
+                              key: Key('$index'),
+                              data: _.selectedPlants[index].id,
+                              child: Visibility(
+                                visible: !_.selectedPlants[index].isDraged,
                                 child: Stack(
                                   children: [
                                     Container(
@@ -109,8 +117,7 @@ class Home extends GetWidget<HomeController> {
                                       height: 110,
                                       width: 80,
                                       color: Colors.red,
-                                      child: Text(controller
-                                          .selectedPlants[index].name),
+                                      child: Text(_.selectedPlants[index].name),
                                     ),
                                     Positioned(
                                       child: Align(
@@ -132,45 +139,46 @@ class Home extends GetWidget<HomeController> {
                                     ),
                                   ],
                                 ),
-                                feedback: Stack(
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.only(
-                                          right: 5, left: 5, top: 10),
-                                      height: 110,
-                                      width: 80,
-                                      color: Colors.red,
-                                      child: Text(controller
-                                          .selectedPlants[index].name),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                            itemCount: controller.selectedPlants.length,
-                          ),
-                          controller.selectedPlants.length < 10
-                              ? Container(
-                                  margin: const EdgeInsets.only(left: 10),
-                                  height: 46,
-                                  width: 46,
-                                  child: InkWell(
-                                    child: const CircleAvatar(
-                                      child: Icon(
-                                        Icons.add,
-                                        color: Colors.white,
-                                      ),
-                                      backgroundColor: primaryColor,
-                                    ),
-                                    onTap: () {
-                                      Get.toNamed(Routes.PLANT);
-                                    },
+                              ),
+                              feedback: Stack(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                        right: 5, left: 5, top: 10),
+                                    height: 110,
+                                    width: 80,
+                                    color: Colors.red,
+                                    child: Text(_.selectedPlants[index].name),
                                   ),
-                                )
-                              : Container(),
-                        ],
-                      ),
-                    )),
+                                ],
+                              ),
+                            );
+                          },
+                          itemCount: _.selectedPlants.length,
+                        ),
+                        _.selectedPlants.length < 10
+                            ? Container(
+                                margin: const EdgeInsets.only(left: 10),
+                                height: 46,
+                                width: 46,
+                                child: InkWell(
+                                  child: const CircleAvatar(
+                                    child: Icon(
+                                      Icons.add,
+                                      color: Colors.white,
+                                    ),
+                                    backgroundColor: primaryColor,
+                                  ),
+                                  onTap: () {
+                                    Get.toNamed(Routes.PLANT);
+                                  },
+                                ),
+                              )
+                            : Container(),
+                      ],
+                    ),
+                  );
+                }),
               )
             ],
           ),

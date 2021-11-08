@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ifplant_app/app/controller/home/home_controller.dart';
@@ -64,7 +66,7 @@ class SelectPlantDetail extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30))),
               onPressed: () {
-                // HomeController.to.addPlant(Plant(id: 1));
+                HomeController.to.addPlant(Plant(id: 1, image: Uint8List(0)));
                 Get.offAndToNamed(Routes.INITIAL);
               },
               child: const Padding(
