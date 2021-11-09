@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:ifplant_app/app/controller/home/home_controller.dart';
-import 'package:ifplant_app/app/data/model/home/plant_model.dart';
 import 'package:ifplant_app/app/route/app_pages.dart';
 import 'package:ifplant_app/app/ui/android/home/components/dragable_plant.dart';
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
@@ -36,7 +35,7 @@ class Home extends GetWidget<HomeController> {
                 child: GestureDetector(
                   behavior: HitTestBehavior.translucent,
                   onTap: () {
-                    controller.toggleBackgroundSelect();
+                    controller.unToggleBackgroundSelect();
                   },
                   child: SizedBox(
                     width: Get.size.width * 0.85,
@@ -152,7 +151,7 @@ class Home extends GetWidget<HomeController> {
                                             backgroundColor: primaryColor,
                                           ),
                                           onTap: () {
-                                            controller.removePlant(index);
+                                            _.removePlant(index);
                                           },
                                         ),
                                       ),
@@ -172,6 +171,10 @@ class Home extends GetWidget<HomeController> {
                                   ),
                                 ],
                               ),
+                              onDragEnd: (detail) {
+                                _.selectedPlants[index].dragPoint =
+                                    detail.offset;
+                              },
                             );
                           },
                           itemCount: _.selectedPlants.length,

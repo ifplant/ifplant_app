@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 
+import 'dart:ui';
+
 class Plant {
   Plant({
     required this.id,
@@ -21,4 +23,6 @@ class Plant {
   final String description;
   final Uint8List image;
   bool isDraged = false;
+  bool isClicked = false;
+  Offset dragPoint = const Offset(0, 0);
 }

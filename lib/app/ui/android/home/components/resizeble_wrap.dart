@@ -5,15 +5,20 @@ import 'package:get/get.dart';
 import 'package:ifplant_app/app/controller/home/home_controller.dart';
 
 class ResizebleWidget extends StatefulWidget {
-  ResizebleWidget({required this.child});
+  const ResizebleWidget({
+    Key? key,
+    required this.child,
+    required this.index,
+  }) : super(key: key);
 
   final Widget child;
+  final int index;
 
   @override
   _ResizebleWidgetState createState() => _ResizebleWidgetState();
 }
 
-const ballDiameter = 20.0;
+const ballDiameter = 15.0;
 
 class _ResizebleWidgetState extends State<ResizebleWidget> {
   double height = 110;
@@ -31,181 +36,106 @@ class _ResizebleWidgetState extends State<ResizebleWidget> {
         Positioned(
           top: top,
           left: left,
-          child: GestureDetector(
-            onTap: () {
-              HomeController.to.toggleBackgroundSelect();
-            },
-            child: Transform.scale(
-              scale: zoom,
-              child: Container(
-                height: height,
-                width: width,
-                child: widget.child,
-              ),
+          child: Transform.scale(
+            scale: zoom,
+            child: SizedBox(
+              height: height,
+              width: width,
+              child: widget.child,
             ),
           ),
         ),
-        Obx(
-          () => HomeController.to.isSelectBackground
-              ? Stack(
-                  children: [
-                    Positioned(
-                      top:
-                          top - (height * zoom - height) / 2 - ballDiameter / 2,
-                      left:
-                          left - (width * zoom - width) / 2 - ballDiameter / 2,
-                      child: ManipulatingBall(
-                        onDrag: (dx, dy) {
-                          var mid = dx + dy;
-                          var zoomRate =
-                              (width + height - mid) / (width + height);
-                          setState(() {
-                            zoom = zoom * pow(zoomRate, 2);
-                          });
-                        },
+        GetBuilder<HomeController>(
+          builder: (controller) {
+            return controller.dragedPlants[widget.index].isClicked
+                ? Stack(
+                    children: [
+                      Positioned(
+                        top: top -
+                            (height * zoom - height) / 2 -
+                            ballDiameter / 2,
+                        left: left -
+                            (width * zoom - width) / 2 -
+                            ballDiameter / 2,
+                        child: ManipulatingBall(
+                          onDrag: (dx, dy) {
+                            var mid = dx + dy;
+                            var zoomRate =
+                                (width + height - mid) / (width + height);
+                            setState(() {
+                              zoom = zoom * pow(zoomRate, 2);
+                            });
+                          },
+                        ),
                       ),
-                    ),
-                    // top middle
-                    Positioned(
-                      top:
-                          top - (height * zoom - height) / 2 - ballDiameter / 2,
-                      left: left + width / 2 - ballDiameter / 2,
-                      child: ManipulatingBall(
-                        onDrag: (dx, dy) {
-                          var newHeight = height - dy;
-                          setState(() {
-                            height = newHeight > 0 ? newHeight : 0;
-                            top = top + dy;
-                          });
-                        },
-                      ),
-                    ),
-                    // top right
-                    Positioned(
-                      top:
-                          top - (height * zoom - height) / 2 - ballDiameter / 2,
-                      left: left +
-                          (width * zoom - width) / 2 +
-                          width -
-                          ballDiameter / 2,
-                      child: ManipulatingBall(
-                        onDrag: (dx, dy) {
-                          var mid = (-dx + dy);
-                          var zoomRate =
-                              (width + height - mid) / (width + height);
 
-                          setState(() {
-                            zoom = zoom * pow(zoomRate, 2);
-                          });
-                        },
-                      ),
-                    ),
-                    // center right
-                    Positioned(
-                      top: top + height / 2 - ballDiameter / 2,
-                      left: left +
-                          (width * zoom - width) / 2 +
-                          width -
-                          ballDiameter / 2,
-                      child: ManipulatingBall(
-                        onDrag: (dx, dy) {
-                          var newWidth = width + dx;
+                      // top right
+                      Positioned(
+                        top: top -
+                            (height * zoom - height) / 2 -
+                            ballDiameter / 2,
+                        left: left +
+                            (width * zoom - width) / 2 +
+                            width -
+                            ballDiameter / 2,
+                        child: ManipulatingBall(
+                          onDrag: (dx, dy) {
+                            var mid = (-dx + dy);
+                            var zoomRate =
+                                (width + height - mid) / (width + height);
 
-                          setState(() {
-                            width = newWidth > 0 ? newWidth : 0;
-                          });
-                        },
+                            setState(() {
+                              zoom = zoom * pow(zoomRate, 2);
+                            });
+                          },
+                        ),
                       ),
-                    ),
-                    // bottom right
-                    Positioned(
-                      top: top +
-                          (height * zoom - height) / 2 +
-                          height -
-                          ballDiameter / 2,
-                      left: left +
-                          (width * zoom - width) / 2 +
-                          width -
-                          ballDiameter / 2,
-                      child: ManipulatingBall(
-                        onDrag: (dx, dy) {
-                          var mid = (-dx - dy);
-                          var zoomRate =
-                              (width + height - mid) / (width + height);
-                          setState(() {
-                            zoom = zoom * pow(zoomRate, 2);
-                          });
-                        },
-                      ),
-                    ),
-                    // bottom center
-                    Positioned(
-                      top: top +
-                          (height * zoom - height) / 2 +
-                          height -
-                          ballDiameter / 2,
-                      left: left + width / 2 - ballDiameter / 2,
-                      child: ManipulatingBall(
-                        onDrag: (dx, dy) {
-                          var newHeight = height + dy;
 
-                          setState(() {
-                            height = newHeight > 0 ? newHeight : 0;
-                          });
-                        },
+                      // bottom right
+                      Positioned(
+                        top: top +
+                            (height * zoom - height) / 2 +
+                            height -
+                            ballDiameter / 2,
+                        left: left +
+                            (width * zoom - width) / 2 +
+                            width -
+                            ballDiameter / 2,
+                        child: ManipulatingBall(
+                          onDrag: (dx, dy) {
+                            var mid = (-dx - dy);
+                            var zoomRate =
+                                (width + height - mid) / (width + height);
+                            setState(() {
+                              zoom = zoom * pow(zoomRate, 2);
+                            });
+                          },
+                        ),
                       ),
-                    ),
-                    // bottom left
-                    Positioned(
-                      top: top +
-                          (height * zoom - height) / 2 +
-                          height -
-                          ballDiameter / 2,
-                      left:
-                          left - (width * zoom - width) / 2 - ballDiameter / 2,
-                      child: ManipulatingBall(
-                        onDrag: (dx, dy) {
-                          var mid = (dx - dy);
-                          var zoomRate =
-                              (width + height - mid) / (width + height);
-                          setState(() {
-                            zoom = zoom * pow(zoomRate, 2);
-                          });
-                        },
+                      // bottom left
+                      Positioned(
+                        top: top +
+                            (height * zoom - height) / 2 +
+                            height -
+                            ballDiameter / 2,
+                        left: left -
+                            (width * zoom - width) / 2 -
+                            ballDiameter / 2,
+                        child: ManipulatingBall(
+                          onDrag: (dx, dy) {
+                            var mid = (dx - dy);
+                            var zoomRate =
+                                (width + height - mid) / (width + height);
+                            setState(() {
+                              zoom = zoom * pow(zoomRate, 2);
+                            });
+                          },
+                        ),
                       ),
-                    ),
-                    //left center
-                    Positioned(
-                      top: top + height / 2 - ballDiameter / 2,
-                      left:
-                          left - (width * zoom - width) / 2 - ballDiameter / 2,
-                      child: ManipulatingBall(
-                        onDrag: (dx, dy) {
-                          var newWidth = width - dx;
-
-                          setState(() {
-                            width = newWidth > 0 ? newWidth : 0;
-                            left = left + dx;
-                          });
-                        },
-                      ),
-                    ),
-                    // center center
-                    Positioned(
-                      top: top + height / 2 - ballDiameter / 2,
-                      left: left + width / 2 - ballDiameter / 2,
-                      child: ManipulatingBall(
-                        onDrag: (dx, dy) {
-                          setState(() {
-                            top = top + dy;
-                            left = left + dx;
-                          });
-                        },
-                      ),
-                    ),
-                  ],
-                )
-              : Container(),
+                    ],
+                  )
+                : Container();
+          },
         ),
       ],
     );
@@ -249,7 +179,7 @@ class _ManipulatingBallState extends State<ManipulatingBall> {
         width: ballDiameter,
         height: ballDiameter,
         decoration: BoxDecoration(
-          color: Colors.blue.withOpacity(0.5),
+          color: Colors.red.withOpacity(0.6),
           shape: BoxShape.circle,
         ),
       ),

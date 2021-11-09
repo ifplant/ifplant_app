@@ -33,6 +33,7 @@ class HomeController extends GetxController {
 
   removePlant(int index) {
     _selectedPlants.removeAt(index);
+    update();
   }
 
   toggleDragedItem(int itemId) {
@@ -49,8 +50,18 @@ class HomeController extends GetxController {
     update();
   }
 
-  toggleBackgroundSelect() {
-    _isSelectBackground.value = !_isSelectBackground.value;
+  toggleBackgroundSelect(Plant plant) {
+    unToggleBackgroundSelect();
+    final index = _dragedPlants.indexWhere((element) => element == plant);
+    _dragedPlants[index].isClicked = !_dragedPlants[index].isClicked;
+    update();
+  }
+
+  unToggleBackgroundSelect() {
+    for (var element in _dragedPlants) {
+      element.isClicked = false;
+    }
+    update();
   }
 
   Future pickSingleImage() async {
