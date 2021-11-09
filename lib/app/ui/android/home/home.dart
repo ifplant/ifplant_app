@@ -4,6 +4,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:ifplant_app/app/controller/home/home_controller.dart';
 import 'package:ifplant_app/app/data/model/home/plant_model.dart';
 import 'package:ifplant_app/app/route/app_pages.dart';
+import 'package:ifplant_app/app/ui/android/home/components/dragable_plant.dart';
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
 import 'package:ifplant_app/app/ui/theme/app_text_theme.dart';
 
@@ -32,43 +33,62 @@ class Home extends GetWidget<HomeController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  width: Get.size.width * 0.85,
-                  height: Get.size.width * 0.85,
-                  child: DragTarget(
-                    builder: (context, candiated, rejected) {
-                      return Obx(
-                        () => controller.selectedImage.path.isNotEmpty
-                            ? Image.file(
-                                controller.selectedImage,
-                                fit: BoxFit.cover,
-                              )
-                            : Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                child: GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () {
+                    controller.toggleBackgroundSelect();
+                  },
+                  child: SizedBox(
+                    width: Get.size.width * 0.85,
+                    height: Get.size.width * 0.85,
+                    child: DragTarget(
+                      builder: (context, candiated, rejected) {
+                        return Obx(
+                          () => controller.selectedImage.path.isNotEmpty
+                              ? Stack(
                                   children: [
-                                    IconButton(
-                                      icon: const Icon(
-                                        Icons.add,
-                                        size: 40,
+                                    SizedBox(
+                                      height: Get.size.width * 0.85,
+                                      width: Get.size.width * 0.85,
+                                      child: Image.file(
+                                        controller.selectedImage,
+                                        fit: BoxFit.cover,
                                       ),
-                                      onPressed: controller.pickSingleImage,
                                     ),
-                                    const Text('배경 고르기'),
+                                    ...List.generate(
+                                      controller.dragedPlants.length,
+                                      (index) => DraggablePlant(
+                                        plant: controller.dragedPlants[index],
+                                      ),
+                                    ),
                                   ],
+                                )
+                              : Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      IconButton(
+                                        icon: const Icon(
+                                          Icons.add,
+                                          size: 40,
+                                        ),
+                                        onPressed: controller.pickSingleImage,
+                                      ),
+                                      const Text('배경 고르기'),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                      );
-                    },
-                    onWillAccept: (data) {
-                      return controller.selectedPlants
-                          .where((element) => element.id == data)
-                          .isNotEmpty;
-                    },
-                    onAccept: (int data) {
-                      controller.toggleDrageItem(data);
-                    },
+                        );
+                      },
+                      onWillAccept: (data) {
+                        return controller.selectedPlants
+                            .where((element) => element.id == data)
+                            .isNotEmpty;
+                      },
+                      onAccept: (int data) {
+                        controller.toggleDragedItem(data);
+                      },
+                    ),
                   ),
                 ),
               ),

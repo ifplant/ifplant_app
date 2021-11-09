@@ -7,8 +7,9 @@ import 'package:image_picker/image_picker.dart';
 class HomeController extends GetxController {
   static HomeController get to => Get.find();
   final RxList<Plant> _selectedPlants = <Plant>[].obs;
+  final RxList<Plant> _dragedPlants = <Plant>[].obs;
   final Rx<File> _selectedImage = File("").obs;
-
+  final RxBool _isSelectBackground = false.obs;
   late ImagePicker _picker;
 
   @override
@@ -18,7 +19,9 @@ class HomeController extends GetxController {
   }
 
   List<Plant> get selectedPlants => _selectedPlants;
+  List<Plant> get dragedPlants => _dragedPlants;
   File get selectedImage => _selectedImage.value;
+  bool get isSelectBackground => _isSelectBackground.value;
 
   addPlant(Plant selectPlant, {int? index = 0}) {
     if (index != null) {
@@ -32,11 +35,22 @@ class HomeController extends GetxController {
     _selectedPlants.removeAt(index);
   }
 
-  toggleDrageItem(int itemId) {
-    final findId =
+  toggleDragedItem(int itemId) {
+    final findItem =
         _selectedPlants.firstWhere((element) => element.id == itemId);
-    findId.isDraged = true;
+    findItem.isDraged = true;
+    _dragedPlants.add(findItem);
     update();
+  }
+
+  deleteDragedItem(int itemId) {
+    _selectedPlants.removeWhere((element) => element.id == itemId);
+    _dragedPlants.removeWhere((element) => element.id == itemId);
+    update();
+  }
+
+  toggleBackgroundSelect() {
+    _isSelectBackground.value = !_isSelectBackground.value;
   }
 
   Future pickSingleImage() async {
