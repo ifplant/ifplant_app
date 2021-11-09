@@ -41,6 +41,7 @@ class HomeController extends GetxController {
         _selectedPlants.firstWhere((element) => element.id == itemId);
     findItem.isDraged = true;
     _dragedPlants.add(findItem);
+
     update();
   }
 

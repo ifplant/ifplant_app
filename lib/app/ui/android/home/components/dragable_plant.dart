@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ifplant_app/app/controller/home/home_controller.dart';
+import 'package:ifplant_app/app/controller/controllers.dart'
+    show HomeController;
 import 'package:ifplant_app/app/data/model/home/plant_model.dart';
-import 'package:ifplant_app/app/ui/android/home/components/resizeble_wrap.dart';
+import 'package:ifplant_app/app/ui/android/home/components.dart'
+    show ResizebleWidget;
 
 class DraggablePlant extends StatefulWidget {
   const DraggablePlant({
@@ -17,6 +19,11 @@ class DraggablePlant extends StatefulWidget {
 }
 
 class _DraggablePlantState extends State<DraggablePlant> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
