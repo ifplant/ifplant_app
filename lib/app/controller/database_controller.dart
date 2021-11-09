@@ -8,6 +8,7 @@ import 'package:path/path.dart';
 
 class DataBaseController extends GetxController {
   static const String dbTableName = 'PLANTS';
+  static const String dbFileName = 'plants.db';
   static DataBaseController get to => Get.find();
   RxList<Plant> plantList = <Plant>[].obs;
 
@@ -28,7 +29,8 @@ class DataBaseController extends GetxController {
       } catch (error) {
         print(error);
       }
-      var data = await rootBundle.load(join('assets', dbTableName));
+      var data = await rootBundle.load(join('assets', dbFileName));
+      print(data);
       List<int> bytes = data.buffer.asUint8List(
         data.offsetInBytes,
         data.lengthInBytes,
@@ -40,7 +42,7 @@ class DataBaseController extends GetxController {
 
   initPlantDb() async {
     final Database db = await getDB();
-    final List<Map<String, dynamic>> maps = await db.query('PLANTS');
+    final List<Map<String, dynamic>> maps = await db.query(dbTableName);
 
     plantList(List.generate(maps.length, (index) {
       return Plant(
