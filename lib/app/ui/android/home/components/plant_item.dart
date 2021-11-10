@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:ifplant_app/app/controller/controllers.dart'
     show HomeController;
 import 'package:ifplant_app/app/ui/android/appBar/home_appbar.dart';
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
 
-class PlantItem extends StatelessWidget {
+class PlantItem extends GetWidget<HomeController> {
   const PlantItem({
     Key? key,
     required this.index,
-    required this.controller,
   }) : super(key: key);
 
   final int index;
-  final HomeController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +26,10 @@ class PlantItem extends StatelessWidget {
               margin: const EdgeInsets.only(right: 5, left: 5, top: 10),
               height: 110,
               width: 80,
-              color: Colors.red,
-              child: Text(controller.selectedPlants[index].name),
+              child: Image.memory(
+                controller.selectedPlants[index].image,
+                fit: BoxFit.cover,
+              ),
             ),
             Positioned(
               child: Align(
@@ -56,8 +57,10 @@ class PlantItem extends StatelessWidget {
             margin: const EdgeInsets.only(right: 5, left: 5, top: 10),
             height: 110,
             width: 80,
-            color: Colors.red,
-            child: Text(controller.selectedPlants[index].name),
+            child: Image.memory(
+              controller.selectedPlants[index].image,
+              fit: BoxFit.cover,
+            ),
           ),
         ],
       ),

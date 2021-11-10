@@ -51,12 +51,9 @@ class _DraggablePlantState extends State<DraggablePlant> {
               child: ResizebleWidget(
                 index: HomeController.to.dragedPlants
                     .indexWhere((element) => element == widget.plant),
-                child: Container(
-                  color: Colors.blue,
-                  // child: Image.memory(
-                  //   widget.plant.image,
-                  //   fit: BoxFit.cover,
-                  // ),
+                child: Image.memory(
+                  widget.plant.image,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),

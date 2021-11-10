@@ -2,7 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ifplant_app/app/controller/home/home_controller.dart';
+import 'package:ifplant_app/app/controller/controllers.dart'
+    show HomeController;
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
 
 class ResizebleWidget extends StatefulWidget {
