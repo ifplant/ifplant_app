@@ -18,3 +18,9 @@ const TextStyle appBarActionTextStyle = TextStyle(
   fontWeight: FontWeight.w700,
   fontSize: 14,
 );
+
+const TextStyle appBarActionInactiveTextStyle = TextStyle(
+  color: inActiveColor,
+  fontWeight: FontWeight.w700,
+  fontSize: 14,
+);

@@ -10,6 +10,7 @@ class HomeController extends GetxController {
   final RxList<Plant> _dragedPlants = <Plant>[].obs;
   final Rx<File> _selectedImage = File("").obs;
   final RxBool _isSelectBackground = false.obs;
+  final RxBool _isDeleteButtonClick = false.obs;
   late ImagePicker _picker;
 
   @override
@@ -22,6 +23,7 @@ class HomeController extends GetxController {
   List<Plant> get dragedPlants => _dragedPlants;
   File get selectedImage => _selectedImage.value;
   bool get isSelectBackground => _isSelectBackground.value;
+  bool get isDeleteButtonClick => _isDeleteButtonClick.value;
 
   addPlant(Plant selectPlant, {int? index = 0}) {
     if (index != null) {
@@ -33,6 +35,11 @@ class HomeController extends GetxController {
 
   removePlant(int index) {
     _selectedPlants.removeAt(index);
+    update();
+  }
+
+  removeDragedItem(int index) {
+    _dragedPlants.removeAt(index);
     update();
   }
 
@@ -51,6 +58,11 @@ class HomeController extends GetxController {
     update();
   }
 
+  toggleDeleteButtonSelect() {
+    _isDeleteButtonClick.value = true;
+    update();
+  }
+
   toggleBackgroundSelect(Plant plant) {
     unToggleBackgroundSelect();
     final index = _dragedPlants.indexWhere((element) => element == plant);
@@ -62,6 +74,7 @@ class HomeController extends GetxController {
     for (var element in _dragedPlants) {
       element.isClicked = false;
     }
+    _isDeleteButtonClick.value = false;
     update();
   }
 
@@ -69,6 +82,7 @@ class HomeController extends GetxController {
     await _picker.pickImage(source: ImageSource.gallery).then((value) {
       if (value != null) {
         _selectedImage(File(value.path));
+        update();
       }
     });
   }

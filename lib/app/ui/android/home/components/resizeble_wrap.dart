@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ifplant_app/app/controller/home/home_controller.dart';
+import 'package:ifplant_app/app/ui/theme/app_color.dart';
 
 class ResizebleWidget extends StatefulWidget {
   const ResizebleWidget({
@@ -24,8 +25,8 @@ class _ResizebleWidgetState extends State<ResizebleWidget> {
   double height = 110;
   double width = 80;
 
-  double top = 0;
-  double left = 0;
+  double top = 50;
+  double left = 50;
 
   double zoom = 1;
 
@@ -47,94 +48,114 @@ class _ResizebleWidgetState extends State<ResizebleWidget> {
         ),
         GetBuilder<HomeController>(
           builder: (controller) {
-            return controller.dragedPlants[widget.index].isClicked
-                ? Stack(
-                    children: [
-                      Positioned(
-                        top: top -
-                            (height * zoom - height) / 2 -
-                            ballDiameter / 2,
-                        left: left -
-                            (width * zoom - width) / 2 -
-                            ballDiameter / 2,
-                        child: ManipulatingBall(
-                          onDrag: (dx, dy) {
-                            var mid = dx + dy;
-                            var zoomRate =
-                                (width + height - mid) / (width + height);
-                            setState(() {
-                              zoom = zoom * pow(zoomRate, 2);
-                            });
-                          },
-                        ),
-                      ),
+            if (controller.dragedPlants[widget.index].isClicked) {
+              return Stack(
+                children: [
+                  //top left
+                  Positioned(
+                    top: top - (height * zoom - height) / 2 - ballDiameter / 2,
+                    left: left - (width * zoom - width) / 2 - ballDiameter / 2,
+                    child: ManipulatingBall(
+                      onDrag: (dx, dy) {
+                        var mid = dx + dy;
+                        var zoomRate =
+                            (width + height - mid) / (width + height);
+                        setState(() {
+                          zoom = zoom * pow(zoomRate, 2);
+                        });
+                      },
+                    ),
+                  ),
 
-                      // top right
-                      Positioned(
-                        top: top -
-                            (height * zoom - height) / 2 -
-                            ballDiameter / 2,
-                        left: left +
-                            (width * zoom - width) / 2 +
-                            width -
-                            ballDiameter / 2,
-                        child: ManipulatingBall(
-                          onDrag: (dx, dy) {
-                            var mid = (-dx + dy);
-                            var zoomRate =
-                                (width + height - mid) / (width + height);
+                  // top right
+                  Positioned(
+                    top: top - (height * zoom - height) / 2 - ballDiameter / 2,
+                    left: left +
+                        (width * zoom - width) / 2 +
+                        width -
+                        ballDiameter / 2,
+                    child: ManipulatingBall(
+                      onDrag: (dx, dy) {
+                        var mid = (-dx + dy);
+                        var zoomRate =
+                            (width + height - mid) / (width + height);
 
-                            setState(() {
-                              zoom = zoom * pow(zoomRate, 2);
-                            });
-                          },
-                        ),
-                      ),
+                        setState(() {
+                          zoom = zoom * pow(zoomRate, 2);
+                        });
+                      },
+                    ),
+                  ),
 
-                      // bottom right
-                      Positioned(
-                        top: top +
-                            (height * zoom - height) / 2 +
-                            height -
-                            ballDiameter / 2,
-                        left: left +
-                            (width * zoom - width) / 2 +
-                            width -
-                            ballDiameter / 2,
-                        child: ManipulatingBall(
-                          onDrag: (dx, dy) {
-                            var mid = (-dx - dy);
-                            var zoomRate =
-                                (width + height - mid) / (width + height);
-                            setState(() {
-                              zoom = zoom * pow(zoomRate, 2);
-                            });
-                          },
+                  // bottom right
+                  Positioned(
+                    top: top +
+                        (height * zoom - height) / 2 +
+                        height -
+                        ballDiameter / 2,
+                    left: left +
+                        (width * zoom - width) / 2 +
+                        width -
+                        ballDiameter / 2,
+                    child: ManipulatingBall(
+                      onDrag: (dx, dy) {
+                        var mid = (-dx - dy);
+                        var zoomRate =
+                            (width + height - mid) / (width + height);
+                        setState(() {
+                          zoom = zoom * pow(zoomRate, 2);
+                        });
+                      },
+                    ),
+                  ),
+                  // bottom left
+                  Positioned(
+                    top: top +
+                        (height * zoom - height) / 2 +
+                        height -
+                        ballDiameter / 2,
+                    left: left - (width * zoom - width) / 2 - ballDiameter / 2,
+                    child: ManipulatingBall(
+                      onDrag: (dx, dy) {
+                        var mid = (dx - dy);
+                        var zoomRate =
+                            (width + height - mid) / (width + height);
+                        setState(() {
+                          zoom = zoom * pow(zoomRate, 2);
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              );
+            } else {
+              return Stack(
+                children: [
+                  Positioned(
+                    top: top - (height * zoom - height) / 2 - ballDiameter / 2,
+                    left: left - (width * zoom - width) / 2 - ballDiameter / 2,
+                    child: AnimatedOpacity(
+                      opacity:
+                          HomeController.to.isDeleteButtonClick ? 1.0 : 0.0,
+                      duration: const Duration(milliseconds: 150),
+                      child: InkWell(
+                        child: const CircleAvatar(
+                          child: Center(
+                            child: Icon(Icons.close, size: 15),
+                          ),
+                          radius: 13,
+                          backgroundColor: primaryColor,
                         ),
+                        onTap: () {
+                          controller.removeDragedItem(widget.index);
+                          controller.removePlant(widget.index);
+                        },
                       ),
-                      // bottom left
-                      Positioned(
-                        top: top +
-                            (height * zoom - height) / 2 +
-                            height -
-                            ballDiameter / 2,
-                        left: left -
-                            (width * zoom - width) / 2 -
-                            ballDiameter / 2,
-                        child: ManipulatingBall(
-                          onDrag: (dx, dy) {
-                            var mid = (dx - dy);
-                            var zoomRate =
-                                (width + height - mid) / (width + height);
-                            setState(() {
-                              zoom = zoom * pow(zoomRate, 2);
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  )
-                : Container();
+                    ),
+                  ),
+                ],
+              );
+            }
           },
         ),
       ],
@@ -179,7 +200,7 @@ class _ManipulatingBallState extends State<ManipulatingBall> {
         width: ballDiameter,
         height: ballDiameter,
         decoration: BoxDecoration(
-          color: Colors.red.withOpacity(0.6),
+          color: Colors.red.withOpacity(0.7),
           shape: BoxShape.circle,
         ),
       ),

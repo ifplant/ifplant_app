@@ -4,8 +4,8 @@ import 'package:ifplant_app/app/controller/controllers.dart'
 import 'package:ifplant_app/app/ui/android/appBar/home_appbar.dart';
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
 
-class DragPlant extends StatelessWidget {
-  const DragPlant({
+class PlantItem extends StatelessWidget {
+  const PlantItem({
     Key? key,
     required this.index,
     required this.controller,
@@ -62,10 +62,11 @@ class DragPlant extends StatelessWidget {
         ],
       ),
       onDragEnd: (detail) {
-        final _dx = detail.offset.dx;
+        final _dx = detail.offset.dx - 50;
         final _dy = detail.offset.dy -
             homeAppBar.preferredSize.height -
-            MediaQuery.of(context).padding.top;
+            MediaQuery.of(context).padding.top -
+            50;
         controller.selectedPlants[index].dragPoint = Offset(_dx, _dy);
       },
     );

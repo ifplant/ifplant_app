@@ -7,7 +7,7 @@ import 'package:ifplant_app/app/ui/android/appBar/home_appbar.dart';
 import 'package:ifplant_app/app/ui/android/home/components/dragable_plant.dart';
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
 
-import 'components/drag_plant.dart';
+import 'components/plant_item.dart';
 
 class Home extends GetWidget<HomeController> {
   static const double hiddenLeft = 22.0;
@@ -32,8 +32,9 @@ class Home extends GetWidget<HomeController> {
                   height: Get.size.width * 0.85,
                   child: DragTarget(
                     builder: (context, candiated, rejected) {
-                      return Obx(
-                        () => controller.selectedImage.path.isNotEmpty
+                      return GetBuilder<HomeController>(
+                        builder: (context) => controller
+                                .selectedImage.path.isNotEmpty
                             ? Stack(
                                 children: [
                                   SizedBox(
@@ -114,7 +115,7 @@ class Home extends GetWidget<HomeController> {
                           homeController.addPlant(item, index: newIndex);
                         },
                         itemBuilder: (ctx, index) {
-                          return DragPlant(
+                          return PlantItem(
                             index: index,
                             controller: homeController,
                             key: Key('$index'),

@@ -42,7 +42,10 @@ class _DraggablePlantState extends State<DraggablePlant> {
             onTap: () {
               HomeController.to.toggleBackgroundSelect(widget.plant);
             },
-            child: Container(
+            onLongPress: () {
+              HomeController.to.toggleDeleteButtonSelect();
+            },
+            child: SizedBox(
               height: Get.size.height,
               width: Get.size.width,
               child: ResizebleWidget(
