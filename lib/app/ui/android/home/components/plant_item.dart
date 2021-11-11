@@ -67,7 +67,7 @@ class PlantItem extends GetWidget<HomeController> {
       onDragEnd: (detail) {
         final _dx = detail.offset.dx - 50;
         final _dy = detail.offset.dy -
-            homeAppBar.preferredSize.height -
+            AppBar().preferredSize.height -
             MediaQuery.of(context).padding.top -
             50;
         controller.selectedPlants[index].dragPoint = Offset(_dx, _dy);

@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ifplant_app/app/data/model/home/plant_model.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 class HomeController extends GetxController {
   static HomeController get to => Get.find();
@@ -79,9 +81,25 @@ class HomeController extends GetxController {
   }
 
   Future pickSingleImage() async {
-    await _picker.pickImage(source: ImageSource.gallery).then((value) {
+    await _picker.pickImage(source: ImageSource.gallery).then((value) async {
       if (value != null) {
-        _selectedImage(File(value.path));
+        File? croppedFile = await ImageCropper.cropImage(
+          sourcePath: value.path,
+          aspectRatioPresets: [
+            CropAspectRatioPreset.square,
+            CropAspectRatioPreset.ratio3x2,
+            CropAspectRatioPreset.original,
+            CropAspectRatioPreset.ratio4x3,
+            CropAspectRatioPreset.ratio16x9
+          ],
+          androidUiSettings: const AndroidUiSettings(
+              toolbarTitle: 'Cropper',
+              toolbarColor: Colors.deepOrange,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false),
+        );
+        _selectedImage(croppedFile);
         update();
       }
     });
