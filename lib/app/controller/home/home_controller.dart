@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ifplant_app/app/data/model/home/plant_model.dart';
+import 'package:ifplant_app/app/ui/theme/app_color.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 
@@ -93,8 +94,8 @@ class HomeController extends GetxController {
             CropAspectRatioPreset.ratio16x9
           ],
           androidUiSettings: const AndroidUiSettings(
-              toolbarTitle: 'Cropper',
-              toolbarColor: Colors.deepOrange,
+              toolbarTitle: '이미지 편집',
+              toolbarColor: primaryColor,
               toolbarWidgetColor: Colors.white,
               initAspectRatio: CropAspectRatioPreset.original,
               lockAspectRatio: false),
