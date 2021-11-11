@@ -4,17 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ifplant_app/app/controller/controllers.dart'
     show HomeController;
+import 'package:ifplant_app/app/data/model/home/selected_plant_model.dart';
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
 
 class ResizebleWidget extends StatefulWidget {
   const ResizebleWidget({
     Key? key,
     required this.child,
-    required this.index,
+    required this.plant,
   }) : super(key: key);
 
   final Widget child;
-  final int index;
+  final SelectedPlant plant;
 
   @override
   _ResizebleWidgetState createState() => _ResizebleWidgetState();
@@ -49,7 +50,7 @@ class _ResizebleWidgetState extends State<ResizebleWidget> {
         ),
         GetBuilder<HomeController>(
           builder: (controller) {
-            if (controller.dragedPlants[widget.index].isClicked) {
+            if (widget.plant.isClicked) {
               return Stack(
                 children: [
                   //top left
@@ -136,8 +137,7 @@ class _ResizebleWidgetState extends State<ResizebleWidget> {
                     top: top - (height * zoom - height) / 2 - ballDiameter / 2,
                     left: left - (width * zoom - width) / 2 - ballDiameter / 2,
                     child: AnimatedOpacity(
-                      opacity:
-                          HomeController.to.isDeleteButtonClick ? 1.0 : 0.0,
+                      opacity: widget.plant.isDeleteButtonClick ? 1.0 : 0.0,
                       duration: const Duration(milliseconds: 150),
                       child: InkWell(
                         child: const CircleAvatar(
@@ -148,8 +148,8 @@ class _ResizebleWidgetState extends State<ResizebleWidget> {
                           backgroundColor: primaryColor,
                         ),
                         onTap: () {
-                          controller.removeDragedItem(widget.index);
-                          controller.removePlant(widget.index);
+                          controller.removeDragedItem(widget.plant);
+                          controller.removeSeletedItem(widget.plant);
                         },
                       ),
                     ),
