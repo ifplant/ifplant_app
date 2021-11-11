@@ -30,7 +30,6 @@ class DataBaseController extends GetxController {
         print(error);
       }
       var data = await rootBundle.load(join('assets', dbFileName));
-      print(data);
       List<int> bytes = data.buffer.asUint8List(
         data.offsetInBytes,
         data.lengthInBytes,

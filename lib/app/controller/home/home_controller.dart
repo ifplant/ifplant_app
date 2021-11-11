@@ -2,18 +2,19 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ifplant_app/app/data/model/home/plant_model.dart';
+import 'package:ifplant_app/app/data/model/home/selected_plant_model.dart';
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 
 class HomeController extends GetxController {
   static HomeController get to => Get.find();
-  final RxList<Plant> _selectedPlants = <Plant>[].obs;
-  final RxList<Plant> _dragedPlants = <Plant>[].obs;
+  final RxList<SelectedPlant> _selectedPlants = <SelectedPlant>[].obs;
+  final RxList<SelectedPlant> _dragedPlants = <SelectedPlant>[].obs;
   final Rx<File> _selectedImage = File("").obs;
   final RxBool _isSelectBackground = false.obs;
   final RxBool _isDeleteButtonClick = false.obs;
+  final RxInt _selectedIdCount = 0.obs;
   late ImagePicker _picker;
 
   @override
@@ -22,27 +23,30 @@ class HomeController extends GetxController {
     _picker = ImagePicker();
   }
 
-  List<Plant> get selectedPlants => _selectedPlants;
-  List<Plant> get dragedPlants => _dragedPlants;
+  List<SelectedPlant> get selectedPlants => _selectedPlants;
+  List<SelectedPlant> get dragedPlants => _dragedPlants;
   File get selectedImage => _selectedImage.value;
   bool get isSelectBackground => _isSelectBackground.value;
   bool get isDeleteButtonClick => _isDeleteButtonClick.value;
+  int get selectedIdCount => _selectedIdCount.value;
 
-  addPlant(Plant selectPlant, {int? index = 0}) {
+  addPlant(SelectedPlant selectPlant, {int? index}) {
     if (index != null) {
       _selectedPlants.insert(index, selectPlant);
     } else {
       _selectedPlants.add(selectPlant);
+      _selectedIdCount.value = _selectedIdCount.value + 1;
     }
-  }
-
-  removePlant(int index) {
-    _selectedPlants.removeAt(index);
     update();
   }
 
-  removeDragedItem(int index) {
-    _dragedPlants.removeAt(index);
+  removeSeletedItem(SelectedPlant plant) {
+    _selectedPlants.removeWhere((element) => element.id == plant.id);
+    update();
+  }
+
+  removeDragedItem(SelectedPlant plant) {
+    _dragedPlants.removeWhere((element) => element.id == plant.id);
     update();
   }
 
@@ -51,22 +55,17 @@ class HomeController extends GetxController {
         _selectedPlants.firstWhere((element) => element.id == itemId);
     findItem.isDraged = true;
     _dragedPlants.add(findItem);
-
     update();
   }
 
-  deleteDragedItem(int itemId) {
-    _selectedPlants.removeWhere((element) => element.id == itemId);
-    _dragedPlants.removeWhere((element) => element.id == itemId);
+  toggleDeleteButtonSelect(SelectedPlant plant) {
+    unToggleBackgroundSelect();
+    final index = _dragedPlants.indexWhere((element) => element == plant);
+    _dragedPlants[index].isDeleteButtonClick = true;
     update();
   }
 
-  toggleDeleteButtonSelect() {
-    _isDeleteButtonClick.value = true;
-    update();
-  }
-
-  toggleBackgroundSelect(Plant plant) {
+  toggleBackgroundSelect(SelectedPlant plant) {
     unToggleBackgroundSelect();
     final index = _dragedPlants.indexWhere((element) => element == plant);
     _dragedPlants[index].isClicked = !_dragedPlants[index].isClicked;
@@ -76,8 +75,8 @@ class HomeController extends GetxController {
   unToggleBackgroundSelect() {
     for (var element in _dragedPlants) {
       element.isClicked = false;
+      element.isDeleteButtonClick = false;
     }
-    _isDeleteButtonClick.value = false;
     update();
   }
 
