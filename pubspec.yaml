@@ -37,6 +37,7 @@ dependencies:
   get: ^4.3.8
   image_cropper: ^1.4.1
   image_picker: ^0.8.4+3
+  sqflite: ^2.0.0+4
 
 
 dev_dependencies:
@@ -63,7 +64,7 @@ flutter:
 
   assets:
    - assets/images/
-  #   - images/a_dot_ham.jpeg
+   - assets/plants.db
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
