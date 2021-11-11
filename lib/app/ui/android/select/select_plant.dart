@@ -10,7 +10,8 @@ class SelectPlant extends StatelessWidget {
       name: '싱고니움',
       engName: 'Singonium',
       price: 40000,
-      desc: '안녕하세요 예제입니다.',
+      desc:
+          '보스턴 고사리는 역사상 가장 오래된 식물 중 하나에요. 주로 잎이 아래쪽으로 휘어져 있어요. 건조한 환경에서 습도를 높이는데 탁월한 식물입니다. 공기청정식물로 음이온을 발생시켜 실내의 공기를 상쾌하게 만들어 준답니다. 싱그러운 연두색 잎은 플로리스트와 가드너에게 꽃 장식용으로 친숙한 식물이에요.',
       kind: '관엽식물',
       imagePath: 'assets/images/sample_plant.png',
     ),
@@ -18,7 +19,8 @@ class SelectPlant extends StatelessWidget {
       name: '산호초',
       engName: 'Sanhocho',
       price: 70000,
-      desc: '안녕하세요 예제입니다.',
+      desc:
+          '보스턴 고사리는 역사상 가장 오래된 식물 중 하나에요. 주로 잎이 아래쪽으로 휘어져 있어요. 건조한 환경에서 습도를 높이는데 탁월한 식물입니다. 공기청정식물로 음이온을 발생시켜 실내의 공기를 상쾌하게 만들어 준답니다. 싱그러운 연두색 잎은 플로리스트와 가드너에게 꽃 장식용으로 친숙한 식물이에요.',
       kind: '관엽식물',
       imagePath: 'assets/images/sample_plant.png',
     ),

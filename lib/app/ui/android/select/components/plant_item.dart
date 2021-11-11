@@ -25,7 +25,7 @@ class PlantItem extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () {
-            Get.to(SelectPlantDetail(
+            Get.to(() => SelectPlantDetail(
                 name: name,
                 engName: engName,
                 price: price,
