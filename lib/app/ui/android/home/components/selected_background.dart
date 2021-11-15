@@ -53,7 +53,7 @@ class SelectedBackgound extends StatelessWidget {
                                     Icons.add,
                                     size: 40,
                                   ),
-                                  onPressed: controller.pickSingleImage,
+                                  onPressed: () => controller.pickSingleImage(),
                                 ),
                                 const Text('배경 고르기'),
                               ],

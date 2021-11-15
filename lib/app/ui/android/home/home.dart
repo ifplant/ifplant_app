@@ -5,6 +5,7 @@ import 'package:ifplant_app/app/controller/home/home_controller.dart';
 import 'package:ifplant_app/app/ui/android/appBar/home_appbar.dart';
 import 'package:ifplant_app/app/ui/android/home/components.dart'
     show SelectedBackgound, SelectedPlantList;
+import 'package:ifplant_app/app/ui/theme/app_text_theme.dart';
 
 class Home extends GetWidget<HomeController> {
   const Home({Key? key}) : super(key: key);
@@ -21,13 +22,7 @@ class Home extends GetWidget<HomeController> {
             const SizedBox(height: 16),
             const Padding(
               padding: EdgeInsets.only(left: 12),
-              child: Text(
-                '내 화분',
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+              child: Text('내 화분', style: minimalTextStyle),
             ),
             const SizedBox(height: 16),
             const SelectedPlantList()

@@ -6,20 +6,25 @@ import 'package:ifplant_app/app/ui/theme/app_color.dart';
 import 'package:ifplant_app/app/ui/android/home/components.dart' show PlantItem;
 import 'package:get/get.dart';
 
-class SelectedPlantList extends StatelessWidget {
+class SelectedPlantList extends StatefulWidget {
   const SelectedPlantList({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<SelectedPlantList> createState() => _SelectedPlantListState();
+}
+
+class _SelectedPlantListState extends State<SelectedPlantList> {
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14),
       height: 120,
-      child: GetBuilder<HomeController>(builder: (homeController) {
-        return SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: GetBuilder<HomeController>(builder: (homeController) {
+          return Row(
             children: <Widget>[
               ReorderableListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
@@ -60,9 +65,9 @@ class SelectedPlantList extends StatelessWidget {
                     )
                   : Container(),
             ],
-          ),
-        );
-      }),
+          );
+        }),
+      ),
     );
   }
 }

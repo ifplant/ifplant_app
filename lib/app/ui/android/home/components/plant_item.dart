@@ -5,7 +5,7 @@ import 'package:ifplant_app/app/controller/controllers.dart'
 import 'package:ifplant_app/app/ui/android/appBar/home_appbar.dart';
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
 
-class PlantItem extends GetWidget<HomeController> {
+class PlantItem extends StatelessWidget {
   const PlantItem({
     Key? key,
     required this.index,
@@ -15,12 +15,45 @@ class PlantItem extends GetWidget<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Draggable(
-      key: key,
-      data: controller.selectedPlants[index].id,
-      child: Visibility(
-        visible: !controller.selectedPlants[index].isDraged,
-        child: Stack(
+    return GetBuilder<HomeController>(
+      builder: (controller) => Draggable(
+        key: key,
+        data: controller.selectedPlants[index].id,
+        child: Visibility(
+          visible: !controller.selectedPlants[index].isDraged,
+          child: Stack(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(right: 5, left: 5, top: 10),
+                height: 110,
+                width: 80,
+                child: Image.memory(
+                  controller.selectedPlants[index].image,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Positioned(
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: InkWell(
+                    child: const CircleAvatar(
+                      child: Center(
+                        child: Icon(Icons.close, size: 15),
+                      ),
+                      radius: 13,
+                      backgroundColor: primaryColor,
+                    ),
+                    onTap: () {
+                      controller
+                          .removeSeletedItem(controller.selectedPlants[index]);
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        feedback: Stack(
           children: [
             Container(
               margin: const EdgeInsets.only(right: 5, left: 5, top: 10),
@@ -31,47 +64,17 @@ class PlantItem extends GetWidget<HomeController> {
                 fit: BoxFit.cover,
               ),
             ),
-            Positioned(
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: InkWell(
-                  child: const CircleAvatar(
-                    child: Center(
-                      child: Icon(Icons.close, size: 15),
-                    ),
-                    radius: 13,
-                    backgroundColor: primaryColor,
-                  ),
-                  onTap: () {
-                    controller.removePlant(index);
-                  },
-                ),
-              ),
-            ),
           ],
         ),
+        onDragEnd: (detail) {
+          final _dx = detail.offset.dx - 50;
+          final _dy = detail.offset.dy -
+              homeAppBar.preferredSize.height -
+              MediaQuery.of(context).padding.top -
+              50;
+          controller.selectedPlants[index].dragPoint = Offset(_dx, _dy);
+        },
       ),
-      feedback: Stack(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(right: 5, left: 5, top: 10),
-            height: 110,
-            width: 80,
-            child: Image.memory(
-              controller.selectedPlants[index].image,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ],
-      ),
-      onDragEnd: (detail) {
-        final _dx = detail.offset.dx - 50;
-        final _dy = detail.offset.dy -
-            homeAppBar.preferredSize.height -
-            MediaQuery.of(context).padding.top -
-            50;
-        controller.selectedPlants[index].dragPoint = Offset(_dx, _dy);
-      },
     );
   }
 }
