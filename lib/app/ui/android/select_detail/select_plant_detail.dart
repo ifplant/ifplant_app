@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
 import 'package:ifplant_app/app/ui/theme/app_text_theme.dart';
+import 'package:intl/intl.dart';
+import 'dart:math' as math;
 
 class SelectPlantDetail extends StatefulWidget {
   final String name;
@@ -31,8 +34,19 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: primaryColor),
-        backgroundColor: Colors.white,
+        leading: InkWell(
+          onTap: () {
+            Get.back();
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: SvgPicture.asset(
+              'assets/svg/arrow_back.svg',
+              width: 24,
+              height: 24,
+            ),
+          ),
+        ),
         elevation: 0.0,
         centerTitle: true,
         title: Text(
@@ -62,78 +76,96 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
           ],
         ),
       ),
-      bottomNavigationBar: ClipRRect(
-        borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-        child: BottomAppBar(
-            child: Container(
-          height: 80,
-          child: Column(
-            children: [
-              GestureDetector(
-                child: const Icon(Icons.expand_less),
-                onTap: () {
-                  showModalBottomSheet(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30)),
-                    context: context,
-                    builder: _buildBottomSheet,
-                  );
-                },
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+      bottomNavigationBar: Container(
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(45),
+            topRight: Radius.circular(45),
+          ),
+          child: BottomAppBar(
+              elevation: 10.0,
+              child: Container(
+                height: 80,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              widget.name,
-                              style: const TextStyle(
-                                  fontSize: 18,
-                                  color: primaryColor,
-                                  fontWeight: FontWeight.w700),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(6.0),
-                              child: Text(
-                                widget.kind,
-                                style: const TextStyle(
-                                  color: primaryColor,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 9,
-                                ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0, bottom: 12),
+                      child: GestureDetector(
+                        child: SvgPicture.asset(
+                          'assets/svg/arrow_less.svg',
+                          width: 24,
+                          height: 24,
+                        ),
+                        onTap: () {
+                          showModalBottomSheet(
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(45),
+                                topRight: Radius.circular(45),
                               ),
                             ),
-                          ],
-                        ),
-                        Text(
-                          '${widget.price} 원',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      widget.engName,
-                      style: const TextStyle(
-                        color: primaryColor,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 9,
+                            context: context,
+                            builder: _buildBottomSheet,
+                          );
+                        },
                       ),
                     ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 36),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    widget.name,
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        color: primaryColor,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(6.0),
+                                    child: Text(
+                                      widget.kind,
+                                      style: const TextStyle(
+                                        color: primaryColor,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 9,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                NumberFormat('###,###,###,###원')
+                                    .format(widget.price)
+                                    .replaceAll(' ', ''),
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Text(
+                            widget.engName,
+                            style: const TextStyle(
+                              color: primaryColor,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 9,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
                   ],
                 ),
-              )
-            ],
-          ),
-        )),
+              )),
+        ),
       ),
     );
   }
@@ -149,7 +181,14 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
         ),
         child: Column(
           children: [
-            const Icon(Icons.expand_more),
+            Transform.rotate(
+              angle: (180 * math.pi) / 180,
+              child: SvgPicture.asset(
+                'assets/svg/arrow_less.svg',
+                width: 24,
+                height: 24,
+              ),
+            ),
             Column(
               children: [
                 Column(
@@ -181,7 +220,9 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                           ],
                         ),
                         Text(
-                          '${widget.price} 원',
+                          NumberFormat('####,####,###원')
+                              .format(widget.price)
+                              .replaceAll(' ', ''),
                           style: const TextStyle(
                             fontWeight: FontWeight.w900,
                             fontSize: 14,
@@ -203,13 +244,14 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                       child: Text(
                         widget.desc,
                         style: const TextStyle(
+                          height: 1.48,
                           fontWeight: FontWeight.w700,
                           fontSize: 10,
                         ),
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 60),
+                      padding: const EdgeInsets.symmetric(horizontal: 44),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -220,21 +262,23 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10.0),
-                      child: SizedBox(
-                        height: 40,
-                        width: 280,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              primary: primaryColor,
-                              onPrimary: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30))),
-                          onPressed: () {},
-                          child: const Text(
-                            '화분추가',
-                            style: TextStyle(fontSize: 16),
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: SizedBox(
+                          height: 40,
+                          width: 280,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                onPrimary: Colors.white,
+                                primary: primaryColor,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30))),
+                            onPressed: () {},
+                            child: const Text(
+                              '화분추가',
+                              style: TextStyle(fontSize: 16),
+                            ),
                           ),
                         ),
                       ),
@@ -247,23 +291,26 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
         ),
       );
     } else {
-      return Text('null');
+      return const Text('데이터가 없습니다.');
     }
   }
 
   Widget _plant_svg(String title, String icon) {
-    return Column(
-      children: [
-        SvgPicture.asset(
-          'assets/svg/$icon.svg',
-          width: 24,
-          height: 24,
-        ),
-        Text(
-          title,
-          style: const TextStyle(fontSize: 12),
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      child: Column(
+        children: [
+          SvgPicture.asset(
+            'assets/svg/$icon.svg',
+            width: 24,
+            height: 24,
+          ),
+          Text(
+            title,
+            style: const TextStyle(fontSize: 12),
+          ),
+        ],
+      ),
     );
   }
 }

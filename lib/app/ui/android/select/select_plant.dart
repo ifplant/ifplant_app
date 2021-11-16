@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:ifplant_app/app/data/model/home/plant_model.dart';
 import 'package:ifplant_app/app/ui/android/select/components/plant_item.dart';
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
@@ -62,8 +64,19 @@ class SelectPlant extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: primaryColor),
-        backgroundColor: Colors.white,
+        leading: InkWell(
+          onTap: () {
+            Get.back();
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: SvgPicture.asset(
+              'assets/svg/arrow_back.svg',
+              width: 24,
+              height: 24,
+            ),
+          ),
+        ),
         elevation: 0.0,
         centerTitle: true,
         title: const Text(
