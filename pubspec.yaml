@@ -90,7 +90,7 @@ flutter:
           weight: 500        
         - asset: assets/fonts/NotoSansCJKkr-Bold.otf
           weight: 700
-        - asset: assets/fonts/NotoSansCJKkr-Block.otf
+        - asset: assets/fonts/NotoSansCJKkr-Black.otf
           weight: 900
         
   #
