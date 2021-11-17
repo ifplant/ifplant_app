@@ -33,7 +33,7 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: SvgPicture.asset(
-              'assets/svg/arrow_back.svg',
+              'assets/icon/arrow_back.svg',
               width: 24,
               height: 24,
             ),
@@ -41,7 +41,7 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
         ),
         elevation: 0.0,
         centerTitle: true,
-        title: Text(
+        title: const Text(
           '관엽 식물',
           style: baseTextStyle,
         ),
@@ -84,7 +84,7 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                       padding: const EdgeInsets.only(top: 8.0, bottom: 12),
                       child: GestureDetector(
                         child: SvgPicture.asset(
-                          'assets/svg/arrow_less.svg',
+                          'assets/icon/arrow_less.svg',
                           width: 24,
                           height: 24,
                         ),
