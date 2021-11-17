@@ -39,7 +39,8 @@ dependencies:
   image_picker: ^0.8.4+3
   sqflite: ^2.0.0+4
   image_editor: ^1.0.2
-
+  flutter_svg: ^0.23.0+1
+  sliding_up_panel: ^2.0.0+1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -92,7 +93,6 @@ flutter:
           weight: 700
         - asset: assets/fonts/NotoSansCJKkr-Black.otf
           weight: 900
-        
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

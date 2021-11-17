@@ -1,84 +1,47 @@
-import 'dart:typed_data';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:ifplant_app/app/controller/home/home_controller.dart';
-import 'package:ifplant_app/app/data/model/home/plant_model.dart';
-import 'package:ifplant_app/app/route/app_pages.dart';
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
 import 'package:ifplant_app/app/ui/theme/app_text_theme.dart';
+import 'package:ifplant_app/main.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'Controller/select_detail_controller.dart';
+import 'components/show_bottom_sheet.dart';
 
-class SelectPlantDetail extends StatelessWidget {
+class SelectPlantDetail extends GetView<SelectDetailController> {
   const SelectPlantDetail({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        iconTheme: const IconThemeData(color: primaryColor),
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        centerTitle: true,
-        title: Text(
-          '식물이름',
-          style: baseTextStyle,
+    return SafeArea(
+      top: false,
+      bottom: true,
+      child: Scaffold(
+        appBar: AppBar(
+          leading: Icon(
+            CupertinoIcons.back,
+            size: 24,
+          ),
+          centerTitle: true, //Title text 가운데로 정렬
+          title: Text(
+            "관엽식물",
+            style: appBarTitleTextStyle,
+          ),
+          backgroundColor: Colors.transparent, //앱바 투명하게 하기
+          elevation: 0.0,
+          iconTheme: IconThemeData(color: primaryColor),
         ),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const SizedBox(height: 50),
-          Center(
-            child: Container(
-              width: 242,
-              height: 242,
-              child: Image.asset('assets/images/sample_plant.png'),
+        extendBodyBehindAppBar: true, //body 위에 App bar 고정
+        backgroundColor: backgroundColor,
+        body: Stack(
+          children: <Widget>[
+            Center(
+              child: Image.asset('assets/images/img_bostonfern.png'),
             ),
-          ),
-          const SizedBox(height: 20),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const <Widget>[
-              Text(
-                '화분명 : 싱고니움',
-                style: TextStyle(fontSize: 16),
-              ),
-              Text(
-                '높이 : 100cm',
-                style: TextStyle(fontSize: 16),
-              ),
-              Text(
-                '가격 : 70,000',
-                style: TextStyle(fontSize: 16),
-              ),
-              Text(
-                '관리난이도 : 하',
-                style: TextStyle(fontSize: 16),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 40.0),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  primary: primaryColor,
-                  minimumSize: const Size(300, 30),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30))),
-              onPressed: () {
-                //HomeController.to.addPlant(Plant(id: 1, image: Uint8List(0)));
-                Get.offAllNamed(Routes.INITIAL);
-              },
-              child: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: Text(
-                  '화분추가',
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-            ),
-          ),
-        ],
+            ShowbottomSheet(),
+          ],
+        ),
       ),
     );
   }
