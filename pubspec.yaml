@@ -30,6 +30,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   get: ^4.3.8
   image_cropper: ^1.4.1
@@ -37,6 +40,8 @@ dependencies:
   flutter_svg: ^0.23.0+1
   intl: ^0.17.0
 
+  sqflite: ^2.0.0+4
+  image_editor: ^1.0.2
 
 dev_dependencies:
   flutter_test:
@@ -63,7 +68,7 @@ flutter:
   assets:
    - assets/images/
    - assets/svg/
-
+   - assets/plants.db
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -76,17 +81,22 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+  fonts:
+    - family: Noto_Serif_KR
+      fonts:
+        - asset: assets/fonts/NotoSansCJKkr-Thin.otf
+          weight: 100
+        - asset: assets/fonts/NotoSansCJKkr-Light.otf
+          weight: 300
+        - asset: assets/fonts/NotoSansCJKkr-Regular.otf
+          weight: 400
+        - asset: assets/fonts/NotoSansCJKkr-Medium.otf
+          weight: 500        
+        - asset: assets/fonts/NotoSansCJKkr-Bold.otf
+          weight: 700
+        - asset: assets/fonts/NotoSansCJKkr-Black.otf
+          weight: 900
+        
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
