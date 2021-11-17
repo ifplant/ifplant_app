@@ -3,7 +3,7 @@ import 'package:get/route_manager.dart';
 import 'package:ifplant_app/app/binding/init_binding.dart';
 import 'package:ifplant_app/app/route/app_pages.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const IfPlantApp());
 }
@@ -14,6 +14,7 @@ class IfPlantApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'IfPlant App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
