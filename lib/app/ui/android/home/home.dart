@@ -5,6 +5,7 @@ import 'package:ifplant_app/app/controller/home/home_controller.dart';
 import 'package:ifplant_app/app/ui/android/appBar/home_appbar.dart';
 import 'package:ifplant_app/app/ui/android/home/components.dart'
     show SelectedBackgound, SelectedPlantList;
+import 'package:ifplant_app/app/ui/theme/app_color.dart';
 import 'package:ifplant_app/app/ui/theme/app_text_theme.dart';
 
 class Home extends GetWidget<HomeController> {
@@ -14,6 +15,7 @@ class Home extends GetWidget<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: homeAppBar,
+      backgroundColor: backgroundColor,
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

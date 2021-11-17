@@ -4,4 +4,5 @@ abstract class Routes {
   static const INITIAL = '/';
   static const PLANT = '/plant';
   static const PLANTDETAIL = '/plant_detail';
+  static const CAPTURED_PAGE = '/captured_page';
 }

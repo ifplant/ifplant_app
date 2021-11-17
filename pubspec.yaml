@@ -39,6 +39,7 @@ dependencies:
   image_picker: ^0.8.4+3
   sqflite: ^2.0.0+4
   image_editor: ^1.0.2
+  screenshot: ^1.2.3
 
 dev_dependencies:
   flutter_test:

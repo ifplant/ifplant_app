@@ -34,3 +34,9 @@ const TextStyle minimalTextStyle = TextStyle(
   fontWeight: FontWeight.w700,
   fontFamily: 'Noto_Serif_KR',
 );
+
+const TextStyle buttonTextStyle = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.w700,
+  fontFamily: 'Noto_Serif_KR',
+);
