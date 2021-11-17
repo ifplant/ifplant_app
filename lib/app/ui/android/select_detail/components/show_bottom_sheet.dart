@@ -4,17 +4,11 @@ import 'package:get/get.dart';
 import 'package:ifplant_app/app/ui/android/select_detail/Controller/select_detail_controller.dart';
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
 
-class ShowbottomSheet extends StatefulWidget {
+class ShowbottomSheet extends StatelessWidget {
   ShowbottomSheet({Key? key}) : super(key: key);
 
-  @override
-  State<ShowbottomSheet> createState() => _ShowbottomSheetState();
-}
-
-class _ShowbottomSheetState extends State<ShowbottomSheet> {
   SelectDetailController selectDetailController =
       Get.put(SelectDetailController());
-
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -45,17 +39,21 @@ class _ShowbottomSheetState extends State<ShowbottomSheet> {
                       onPressed: () {
                         //사이즈 조절
                         print(
-                            "눌림높이값 ${selectDetailController.bottomsheet_height.value}");
+                            "${selectDetailController.bottomsheet_height.value}");
                         print(
                             "bSelect:${selectDetailController.bSelect.value}");
-
-                        print(
-                            "selectController: ${selectDetailController.showBottomSheetAnim()}");
-
-                        if (selectDetailController.bSelect == true) {
-                          setState(() {
-                            selectDetailController.bottomsheet_height = 0.3.obs;
-                          });
+                        if (selectDetailController.bSelect.value == true) {
+                          selectDetailController.bottomsheet_height.value = 0.3;
+                          print(
+                              "내려가야 된다 ${selectDetailController.bottomsheet_height.value}");
+                          selectDetailController.bSelect.value = false;
+                          print("상태  ${selectDetailController.bSelect.value}");
+                        } else {
+                          selectDetailController.bottomsheet_height.value = 0.5;
+                          selectDetailController.bSelect.value = true;
+                          print(
+                              "올라가야 된다 ${selectDetailController.bottomsheet_height.value}");
+                          print("상태  ${selectDetailController.bSelect.value}");
                         }
                       },
                     ),
