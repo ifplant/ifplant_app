@@ -19,9 +19,12 @@ class SelectPlantDetail extends GetView<SelectDetailController> {
       bottom: true,
       child: Scaffold(
         appBar: AppBar(
-          leading: Icon(
-            CupertinoIcons.back,
-            size: 24,
+          leading: IconButton(
+            icon: Icon(CupertinoIcons.back),
+            iconSize: 24,
+            onPressed: () {
+              Get.back();
+            },
           ),
           centerTitle: true, //Title text 가운데로 정렬
           title: Text(

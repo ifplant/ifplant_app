@@ -14,13 +14,19 @@ class SelectDetailController extends GetxController {
   }
 
   showBottomSheetAnim() {
+    print("showBottomSheetAnim 들어옴");
     if (bSelect.value == true) {
-      print("${bottomsheet_height.value}");
-      bottomsheet_height.value = 0.3;
-      print("${bottomsheet_height.value}");
-    } else {
-      bottomsheet_height.value = 0.5;
+      bottomsheet_height = 0.3.obs;
+      print("내려가야 된다 ${bottomsheet_height.value}");
       bSelect = false.obs;
+      print("상태  ${bSelect.value}");
+    } else {
+      bottomsheet_height = 0.5.obs;
+      bSelect = true.obs;
+      print("올라가야 된다 ${bottomsheet_height.value}");
+      print("상태  ${bSelect.value}");
     }
+    update();
+    return bSelect.value;
   }
 }

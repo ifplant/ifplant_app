@@ -4,10 +4,17 @@ import 'package:get/get.dart';
 import 'package:ifplant_app/app/ui/android/select_detail/Controller/select_detail_controller.dart';
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
 
-class ShowbottomSheet extends StatelessWidget {
+class ShowbottomSheet extends StatefulWidget {
   ShowbottomSheet({Key? key}) : super(key: key);
+
+  @override
+  State<ShowbottomSheet> createState() => _ShowbottomSheetState();
+}
+
+class _ShowbottomSheetState extends State<ShowbottomSheet> {
   SelectDetailController selectDetailController =
       Get.put(SelectDetailController());
+
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -37,13 +44,19 @@ class ShowbottomSheet extends StatelessWidget {
                       ),
                       onPressed: () {
                         //사이즈 조절
-                        print("텍스트 조절");
-                        selectDetailController.bSelect.value = true;
                         print(
-                            "${selectDetailController.bottomsheet_height.value}");
+                            "눌림높이값 ${selectDetailController.bottomsheet_height.value}");
                         print(
                             "bSelect:${selectDetailController.bSelect.value}");
-                        selectDetailController.showBottomSheetAnim();
+
+                        print(
+                            "selectController: ${selectDetailController.showBottomSheetAnim()}");
+
+                        if (selectDetailController.bSelect == true) {
+                          setState(() {
+                            selectDetailController.bottomsheet_height = 0.3.obs;
+                          });
+                        }
                       },
                     ),
                     Row(
