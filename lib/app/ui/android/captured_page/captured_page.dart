@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:ifplant_app/app/controller/controllers.dart';
 import 'package:ifplant_app/app/ui/android/appBar/captured_page_appbar.dart';
@@ -7,9 +8,24 @@ import 'package:ifplant_app/app/ui/android/captured_page/components/captureble_i
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
 import 'package:ifplant_app/app/ui/theme/app_text_theme.dart';
 
-class CapturedPage extends StatelessWidget {
+class CapturedPage extends StatefulWidget {
   CapturedPage({Key? key}) : super(key: key);
-  final controller = Get.put(CapturedPageController());
+
+  @override
+  State<CapturedPage> createState() => _CapturedPageState();
+}
+
+class _CapturedPageState extends State<CapturedPage> {
+  late CapturedPageController controller;
+  late FToast fToast;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = Get.put(CapturedPageController());
+    fToast = FToast();
+    fToast.init(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +46,29 @@ class CapturedPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  controller.captureScreen().then(
+                    (_) {
+                      Get.back();
+                      fToast.showToast(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 24.0, vertical: 12.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30.0),
+                            color: Colors.redAccent.withOpacity(0.5),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              "사진이 저장 되었습니다",
+                              style: sucessToastTextStyle,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   fixedSize: Size(Get.size.width, 40),
                   shape: RoundedRectangleBorder(
