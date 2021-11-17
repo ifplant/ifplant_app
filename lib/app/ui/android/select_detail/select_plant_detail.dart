@@ -1,33 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:ifplant_app/app/data/model/home/plant_model.dart';
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
 import 'package:ifplant_app/app/ui/theme/app_text_theme.dart';
 import 'package:intl/intl.dart';
 import 'dart:math' as math;
 
 class SelectPlantDetail extends StatefulWidget {
-  final String name;
-  final String engName;
-  final int price;
-  final String imagePath;
-  final String desc;
-  final String kind;
-
-  SelectPlantDetail({
-    required this.name,
-    required this.engName,
-    required this.price,
-    required this.imagePath,
-    required this.desc,
-    required this.kind,
-  });
-
   @override
   State<SelectPlantDetail> createState() => _SelectPlantDetailState();
 }
 
 class _SelectPlantDetailState extends State<SelectPlantDetail> {
+  final Plant plantItem = Get.arguments as Plant;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   bool _show = false;
 
   @override
@@ -50,7 +42,7 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
         elevation: 0.0,
         centerTitle: true,
         title: Text(
-          widget.kind,
+          '관엽 식물',
           style: baseTextStyle,
         ),
       ),
@@ -66,7 +58,7 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                     child: Container(
                       width: 288,
                       height: 290,
-                      child: Image.asset(widget.imagePath),
+                      child: Image.memory(plantItem.image),
                     ),
                   ),
                   const SizedBox(height: 85),
@@ -85,7 +77,7 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
           child: BottomAppBar(
               elevation: 10.0,
               child: Container(
-                height: 80,
+                height: 100,
                 child: Column(
                   children: [
                     Padding(
@@ -121,7 +113,7 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                               Row(
                                 children: [
                                   Text(
-                                    widget.name,
+                                    plantItem.name,
                                     style: const TextStyle(
                                         fontSize: 18,
                                         color: primaryColor,
@@ -130,7 +122,7 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                                   Padding(
                                     padding: const EdgeInsets.all(6.0),
                                     child: Text(
-                                      widget.kind,
+                                      '관엽 식물',
                                       style: const TextStyle(
                                         color: primaryColor,
                                         fontWeight: FontWeight.w700,
@@ -141,9 +133,10 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                                 ],
                               ),
                               Text(
-                                NumberFormat('###,###,###,###원')
-                                    .format(widget.price)
-                                    .replaceAll(' ', ''),
+                                // NumberFormat('###,###,###,###원')
+                                //     .format('40000')
+                                //     .replaceAll(' ', ''),
+                                '40,000',
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w900,
                                   fontSize: 14,
@@ -152,7 +145,7 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                             ],
                           ),
                           Text(
-                            widget.engName,
+                            'Test',
                             style: const TextStyle(
                               color: primaryColor,
                               fontWeight: FontWeight.w700,
@@ -173,6 +166,7 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
   Widget _buildBottomSheet(BuildContext context) {
     if (!_show) {
       return Container(
+        color: Colors.transparent,
         height: 310,
         padding: const EdgeInsets.only(
           top: 18,
@@ -200,7 +194,7 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                         Row(
                           children: [
                             Text(
-                              widget.name,
+                              plantItem.name,
                               style: const TextStyle(
                                   fontSize: 18,
                                   color: primaryColor,
@@ -209,7 +203,7 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                             Padding(
                               padding: const EdgeInsets.all(6.0),
                               child: Text(
-                                widget.kind,
+                                '관엽 식물',
                                 style: const TextStyle(
                                   color: primaryColor,
                                   fontWeight: FontWeight.w700,
@@ -220,9 +214,10 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                           ],
                         ),
                         Text(
-                          NumberFormat('####,####,###원')
-                              .format(widget.price)
-                              .replaceAll(' ', ''),
+                          // NumberFormat('####,####,###원')
+                          //     .format('40000')
+                          //     .replaceAll(' ', ''),
+                          '40,000',
                           style: const TextStyle(
                             fontWeight: FontWeight.w900,
                             fontSize: 14,
@@ -231,7 +226,7 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                       ],
                     ),
                     Text(
-                      widget.engName,
+                      'Test',
                       style: const TextStyle(
                         color: primaryColor,
                         fontWeight: FontWeight.w700,
@@ -242,7 +237,7 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                     Container(
                       height: 100,
                       child: Text(
-                        widget.desc,
+                        plantItem.description,
                         style: const TextStyle(
                           height: 1.48,
                           fontWeight: FontWeight.w700,
@@ -255,10 +250,10 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _plant_svg('쉬움', 'easy'),
-                          _plant_svg('반음지', 'shade'),
-                          _plant_svg('1단계', 'level'),
-                          _plant_svg('15~25도', 'temp'),
+                          _plant_svg(plantItem.level, 'easy'),
+                          _plant_svg(plantItem.light, 'shade'),
+                          _plant_svg(plantItem.water, 'level'),
+                          _plant_svg(plantItem.temperature, 'temp'),
                         ],
                       ),
                     ),

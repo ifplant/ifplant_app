@@ -10,11 +10,7 @@ part './app_routes.dart';
 class AppPages {
   static final pages = [
     GetPage(name: Routes.INITIAL, page: () => const Root()),
-    GetPage(
-        name: Routes.PLANT,
-        arguments: 'hey',
-        page: () => SelectPlant(Get.arguments)),
-    GetPage(
-        name: Routes.PLANTDETAIL, page: () => SelectPlantDetail(Get.arguments)),
+    GetPage(name: Routes.PLANT, arguments: 'hey', page: () => SelectPlant()),
+    GetPage(name: Routes.PLANTDETAIL, page: () => SelectPlantDetail()),
   ];
 }

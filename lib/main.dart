@@ -18,7 +18,7 @@ class IfPlantApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'IfPlant App',
       theme: ThemeData(
-        appBarTheme: const AppBarTheme(backgroundColor: backgroundColor),
+        appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
         primaryColor: backgroundColor,
         canvasColor: backgroundColor,
       ),
