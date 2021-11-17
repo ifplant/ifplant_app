@@ -119,11 +119,11 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                                         color: primaryColor,
                                         fontWeight: FontWeight.w700),
                                   ),
-                                  Padding(
+                                  const Padding(
                                     padding: const EdgeInsets.all(6.0),
                                     child: Text(
                                       '관엽 식물',
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         color: primaryColor,
                                         fontWeight: FontWeight.w700,
                                         fontSize: 9,
@@ -132,21 +132,21 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                                   ),
                                 ],
                               ),
-                              Text(
+                              const Text(
                                 // NumberFormat('###,###,###,###원')
                                 //     .format('40000')
                                 //     .replaceAll(' ', ''),
                                 '40,000',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontWeight: FontWeight.w900,
                                   fontSize: 14,
                                 ),
                               ),
                             ],
                           ),
-                          Text(
+                          const Text(
                             'Test',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: primaryColor,
                               fontWeight: FontWeight.w700,
                               fontSize: 9,
@@ -178,7 +178,7 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
             Transform.rotate(
               angle: (180 * math.pi) / 180,
               child: SvgPicture.asset(
-                'assets/svg/arrow_less.svg',
+                'assets/icon/arrow_less.svg',
                 width: 24,
                 height: 24,
               ),
@@ -200,11 +200,11 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                                   color: primaryColor,
                                   fontWeight: FontWeight.w700),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(6.0),
+                            const Padding(
+                              padding: EdgeInsets.all(6.0),
                               child: Text(
                                 '관엽 식물',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: primaryColor,
                                   fontWeight: FontWeight.w700,
                                   fontSize: 9,
@@ -213,21 +213,21 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                             ),
                           ],
                         ),
-                        Text(
+                        const Text(
                           // NumberFormat('####,####,###원')
                           //     .format('40000')
                           //     .replaceAll(' ', ''),
                           '40,000',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontWeight: FontWeight.w900,
                             fontSize: 14,
                           ),
                         ),
                       ],
                     ),
-                    Text(
+                    const Text(
                       'Test',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: primaryColor,
                         fontWeight: FontWeight.w700,
                         fontSize: 9,
@@ -250,9 +250,9 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _plant_svg(plantItem.level, 'easy'),
-                          _plant_svg(plantItem.light, 'shade'),
-                          _plant_svg(plantItem.water, 'level'),
+                          _plant_svg(plantItem.level, 'level'),
+                          _plant_svg(plantItem.light, 'light'),
+                          _plant_svg(plantItem.water, 'water'),
                           _plant_svg(plantItem.temperature, 'temp'),
                         ],
                       ),
@@ -296,7 +296,7 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
       child: Column(
         children: [
           SvgPicture.asset(
-            'assets/svg/$icon.svg',
+            'assets/icon/$icon.svg',
             width: 24,
             height: 24,
           ),
