@@ -18,58 +18,59 @@ class SelectedBackgound extends StatelessWidget {
         onTap: () {
           HomeController.to.unToggleBackgroundSelect();
         },
-        child: SizedBox(
-          width: Get.size.width * 0.85,
-          height: Get.size.width * 0.85,
-          child: DragTarget(
-            builder: (context, candiated, rejected) {
-              return GetBuilder<HomeController>(
-                builder: (controller) =>
-                    controller.selectedImage.path.isNotEmpty
-                        ? Stack(
+        child: GetBuilder<HomeController>(
+          builder: (controller) {
+            return SizedBox(
+              width: Get.size.width * 0.85,
+              height: Get.size.width * 0.85,
+              child: DragTarget(
+                builder: (context, candiated, rejected) {
+                  return controller.selectedImage.path.isEmpty
+                      ? Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(
-                                height: Get.size.width * 0.85,
-                                width: Get.size.width * 0.85,
-                                child: Image.file(
-                                  controller.selectedImage,
-                                  fit: BoxFit.cover,
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.add,
+                                  size: 40,
                                 ),
+                                onPressed: () => controller.pickSingleImage(),
                               ),
-                              ...List.generate(
-                                controller.dragedPlants.length,
-                                (index) => DraggablePlant(
-                                  plant: controller.dragedPlants[index],
-                                ),
-                              ),
+                              const Text('배경 고르기'),
                             ],
-                          )
-                        : Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.add,
-                                    size: 40,
-                                  ),
-                                  onPressed: () => controller.pickSingleImage(),
-                                ),
-                                const Text('배경 고르기'),
-                              ],
-                            ),
                           ),
-              );
-            },
-            onWillAccept: (data) {
-              return HomeController.to.selectedPlants
-                  .where((element) => element.id == data)
-                  .isNotEmpty;
-            },
-            onAccept: (int data) {
-              HomeController.to.toggleDragedItem(data);
-            },
-          ),
+                        )
+                      : Stack(
+                          children: [
+                            SizedBox(
+                              height: Get.size.width * 0.85,
+                              width: Get.size.width * 0.85,
+                              child: Image.file(
+                                controller.selectedImage,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            ...List.generate(
+                              controller.dragedPlants.length,
+                              (index) => DraggablePlant(
+                                plant: controller.dragedPlants[index],
+                              ),
+                            ),
+                          ],
+                        );
+                },
+                onWillAccept: (data) {
+                  return HomeController.to.selectedPlants
+                      .where((element) => element.id == data)
+                      .isNotEmpty;
+                },
+                onAccept: (int data) {
+                  HomeController.to.toggleDragedItem(data);
+                },
+              ),
+            );
+          },
         ),
       ),
     );
