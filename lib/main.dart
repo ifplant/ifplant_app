@@ -4,7 +4,7 @@ import 'package:ifplant_app/app/binding/init_binding.dart';
 import 'package:ifplant_app/app/route/app_pages.dart';
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const IfPlantApp());
 }
