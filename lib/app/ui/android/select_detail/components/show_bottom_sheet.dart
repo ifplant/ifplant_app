@@ -36,26 +36,7 @@ class ShowbottomSheet extends StatelessWidget {
                       icon: SvgPicture.asset(
                         "assets/images/icon_arrow_down.svg",
                       ),
-                      onPressed: () {
-                        //사이즈 조절
-                        print(
-                            "${selectDetailController.bottomsheet_height.value}");
-                        print(
-                            "bSelect:${selectDetailController.bSelect.value}");
-                        if (selectDetailController.bSelect.value == true) {
-                          selectDetailController.bottomsheet_height.value = 0.3;
-                          print(
-                              "내려가야 된다 ${selectDetailController.bottomsheet_height.value}");
-                          selectDetailController.bSelect.value = false;
-                          print("상태  ${selectDetailController.bSelect.value}");
-                        } else {
-                          selectDetailController.bottomsheet_height.value = 0.5;
-                          selectDetailController.bSelect.value = true;
-                          print(
-                              "올라가야 된다 ${selectDetailController.bottomsheet_height.value}");
-                          print("상태  ${selectDetailController.bSelect.value}");
-                        }
-                      },
+                      onPressed: () {},
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
