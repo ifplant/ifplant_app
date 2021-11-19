@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:ifplant_app/app/binding/init_binding.dart';
 import 'package:ifplant_app/app/route/app_pages.dart';
+import 'package:ifplant_app/app/ui/theme/app_color.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +18,9 @@ class IfPlantApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'IfPlant App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
+        primaryColor: backgroundColor,
+        canvasColor: backgroundColor,
       ),
       initialBinding: InitBinding(),
       initialRoute: '/',

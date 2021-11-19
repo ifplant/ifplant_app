@@ -7,9 +7,7 @@ import 'package:ifplant_app/app/ui/android/home/components.dart' show PlantItem;
 import 'package:get/get.dart';
 
 class SelectedPlantList extends StatefulWidget {
-  const SelectedPlantList({
-    Key? key,
-  }) : super(key: key);
+  const SelectedPlantList({Key? key}) : super(key: key);
 
   @override
   State<SelectedPlantList> createState() => _SelectedPlantListState();

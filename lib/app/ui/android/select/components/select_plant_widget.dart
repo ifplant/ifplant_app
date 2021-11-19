@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:ifplant_app/app/ui/theme/app_color.dart';
+import 'package:get/get.dart';
+import 'package:ifplant_app/app/controller/controllers.dart';
+import 'package:ifplant_app/app/data/model/home/plant_model.dart';
 
-class SelectPlantWidget extends StatelessWidget {
-  final String name, path;
-  final void Function()? ontap;
-  const SelectPlantWidget({
-    Key? key,
-    required this.name,
-    required this.path,
-    this.ontap,
-  }) : super(key: key);
+class SelectPlantWidget extends GetWidget<HomeController> {
+  final Plant plant;
+  const SelectPlantWidget(this.plant, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
         child: GridView.builder(
-      itemCount: 10,
+      itemCount: controller.selectedPlants.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         childAspectRatio: 0.8,
         crossAxisCount: 2,
@@ -24,10 +20,12 @@ class SelectPlantWidget extends StatelessWidget {
         return Column(
           children: [
             GestureDetector(
-              onTap: ontap,
+              onTap: () {
+                Get.toNamed('/plant/');
+              },
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 3),
-                child: Image.asset(path),
+                child: Image.memory(plant.image),
                 height: 180,
                 width: 180,
               ),
@@ -35,7 +33,7 @@ class SelectPlantWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Text(
-                name,
+                plant.name,
                 style: const TextStyle(fontSize: 16),
               ),
             ),
