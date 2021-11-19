@@ -41,8 +41,8 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
         ),
         elevation: 0.0,
         centerTitle: true,
-        title: const Text(
-          '관엽 식물',
+        title: Text(
+          plantItem.kind,
           style: baseTextStyle,
         ),
       ),
@@ -90,6 +90,8 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                         ),
                         onTap: () {
                           showModalBottomSheet(
+                            backgroundColor: Colors.white,
+                            barrierColor: Colors.transparent,
                             shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(45),
@@ -119,11 +121,11 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                                         color: primaryColor,
                                         fontWeight: FontWeight.w700),
                                   ),
-                                  const Padding(
+                                  Padding(
                                     padding: const EdgeInsets.all(6.0),
                                     child: Text(
-                                      '관엽 식물',
-                                      style: TextStyle(
+                                      plantItem.kind,
+                                      style: const TextStyle(
                                         color: primaryColor,
                                         fontWeight: FontWeight.w700,
                                         fontSize: 9,
@@ -132,21 +134,20 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                                   ),
                                 ],
                               ),
-                              const Text(
-                                // NumberFormat('###,###,###,###원')
-                                //     .format('40000')
-                                //     .replaceAll(' ', ''),
-                                '40,000',
-                                style: TextStyle(
+                              Text(
+                                NumberFormat('###,###,###,###원')
+                                    .format(int.parse(plantItem.price))
+                                    .replaceAll(' ', ''),
+                                style: const TextStyle(
                                   fontWeight: FontWeight.w900,
                                   fontSize: 14,
                                 ),
                               ),
                             ],
                           ),
-                          const Text(
-                            'Test',
-                            style: TextStyle(
+                          Text(
+                            plantItem.engName,
+                            style: const TextStyle(
                               color: primaryColor,
                               fontWeight: FontWeight.w700,
                               fontSize: 9,
@@ -200,11 +201,11 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                                   color: primaryColor,
                                   fontWeight: FontWeight.w700),
                             ),
-                            const Padding(
-                              padding: EdgeInsets.all(6.0),
+                            Padding(
+                              padding: const EdgeInsets.all(6.0),
                               child: Text(
-                                '관엽 식물',
-                                style: TextStyle(
+                                plantItem.kind,
+                                style: const TextStyle(
                                   color: primaryColor,
                                   fontWeight: FontWeight.w700,
                                   fontSize: 9,
@@ -213,21 +214,20 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                             ),
                           ],
                         ),
-                        const Text(
-                          // NumberFormat('####,####,###원')
-                          //     .format('40000')
-                          //     .replaceAll(' ', ''),
-                          '40,000',
-                          style: TextStyle(
+                        Text(
+                          NumberFormat('####,####,###원')
+                              .format(int.parse(plantItem.price))
+                              .replaceAll(' ', ''),
+                          style: const TextStyle(
                             fontWeight: FontWeight.w900,
                             fontSize: 14,
                           ),
                         ),
                       ],
                     ),
-                    const Text(
-                      'Test',
-                      style: TextStyle(
+                    Text(
+                      plantItem.engName,
+                      style: const TextStyle(
                         color: primaryColor,
                         fontWeight: FontWeight.w700,
                         fontSize: 9,
