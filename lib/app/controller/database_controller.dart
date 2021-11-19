@@ -21,21 +21,20 @@ class DataBaseController extends GetxController {
   Future<Database> getDB() async {
     var dataBasePath = await getDatabasesPath();
     var path = join(dataBasePath, '~wwww/plants.db');
-    var exists = await databaseExists(path);
+    // var exists = await databaseExists(path);
 
-    if (!exists) {
-      try {
-        await Directory(dirname(path)).create(recursive: true);
-      } catch (error) {
-        print(error);
-      }
-      var data = await rootBundle.load(join('assets', dbFileName));
-      List<int> bytes = data.buffer.asUint8List(
-        data.offsetInBytes,
-        data.lengthInBytes,
-      );
-      await File(path).writeAsBytes(bytes, flush: true);
+    try {
+      await Directory(dirname(path)).create(recursive: true);
+    } catch (error) {
+      print(error);
     }
+    var data = await rootBundle.load(join('assets', dbFileName));
+    List<int> bytes = data.buffer.asUint8List(
+      data.offsetInBytes,
+      data.lengthInBytes,
+    );
+    await File(path).writeAsBytes(bytes, flush: true);
+
     return await openDatabase(path);
   }
 
@@ -53,6 +52,9 @@ class DataBaseController extends GetxController {
         temperature: maps[index]['temperature'],
         description: maps[index]['description'],
         image: maps[index]['image'],
+        price: maps[index]['price'],
+        engName: maps[index]['engName'],
+        kind: maps[index]['kind'],
       );
     }));
   }
