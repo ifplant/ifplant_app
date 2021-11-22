@@ -46,7 +46,7 @@ class ShowBottomAppBar extends StatelessWidget {
                           ),
                           context: context,
                           builder: (context) => _show
-                              ? Text('데이터가 존재하지 않습니다.')
+                              ? const Text('데이터가 존재하지 않습니다.')
                               : BuildBottomSheet(plant: plant),
                         ).then((value) => Get.back());
                       },

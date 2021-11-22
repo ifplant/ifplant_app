@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ifplant_app/app/data/model/home/plant_model.dart';
+import 'package:ifplant_app/app/ui/android/appBar/select_plant_detail.dart';
 import 'package:ifplant_app/app/ui/android/select_detail/components/show_bottom_appbar.dart';
-import 'package:ifplant_app/app/ui/theme/app_text_theme.dart';
 import 'package:get/get.dart';
 
 class SelectPlantDetail extends StatefulWidget {
@@ -23,27 +22,7 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: InkWell(
-            onTap: () {
-              Get.back();
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: SvgPicture.asset(
-                'assets/icon/arrow_back.svg',
-                width: 24,
-                height: 24,
-              ),
-            ),
-          ),
-          elevation: 0.0,
-          centerTitle: true,
-          title: Text(
-            plantItem.kind,
-            style: baseTextStyle,
-          ),
-        ),
+        appBar: selectPlantDetailAppbar(plantItem),
         body: SingleChildScrollView(
           child: Column(
             children: [
