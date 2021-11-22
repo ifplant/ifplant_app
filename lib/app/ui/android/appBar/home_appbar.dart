@@ -4,7 +4,6 @@ import 'package:ifplant_app/app/controller/home/home_controller.dart';
 import 'package:ifplant_app/app/ui/theme/app_text_theme.dart';
 
 final AppBar homeAppBar = AppBar(
-  backgroundColor: Colors.white,
   elevation: 0.0,
   centerTitle: true,
   titleSpacing: 0,

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
+import 'package:ifplant_app/app/controller/home/home_controller.dart';
 import 'package:ifplant_app/app/data/model/home/plant_model.dart';
+import 'package:ifplant_app/app/data/model/home/selected_plant_model.dart';
+import 'package:ifplant_app/app/route/app_pages.dart';
+import 'package:ifplant_app/app/ui/android/select/select_plant.dart';
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
 import 'package:ifplant_app/app/ui/theme/app_text_theme.dart';
 import 'package:intl/intl.dart';
 import 'dart:math' as math;
+import 'package:get/get.dart';
 
 class SelectPlantDetail extends StatefulWidget {
   @override
@@ -28,7 +32,7 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
       appBar: AppBar(
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Get.to(Routes.INITIAL);
           },
           child: Padding(
             padding: const EdgeInsets.all(12.0),
@@ -100,7 +104,7 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                             ),
                             context: context,
                             builder: _buildBottomSheet,
-                          );
+                          ).then((value) => Get.back());
                         },
                       ),
                     ),
@@ -269,7 +273,14 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                                 primary: primaryColor,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(30))),
-                            onPressed: () {},
+                            onPressed: () {
+                              HomeController.to.addPlant(
+                                SelectedPlant(
+                                    id: HomeController.to.selectedIdCount,
+                                    image: plantItem.image),
+                              );
+                              Get.back();
+                            },
                             child: const Text(
                               '화분추가',
                               style: TextStyle(fontSize: 16),

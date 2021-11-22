@@ -57,7 +57,7 @@ class _SelectedPlantListState extends State<SelectedPlantList> {
                           backgroundColor: primaryColor,
                         ),
                         onTap: () {
-                          Get.toNamed(Routes.PLANT);
+                          Get.toNamed(Routes.PLANTLIST);
                         },
                       ),
                     )
