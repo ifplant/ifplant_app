@@ -1,4 +1,4 @@
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -16,10 +16,12 @@ class InitController extends GetxController {
     ].request();
 
     final info = statuses[Permission.storage].toString();
-    Fluttertoast.showToast(
-      msg: info,
-      toastLength: Toast.LENGTH_LONG,
-      backgroundColor: secondaryColor,
+    Get.snackbar(
+      "Permission Grant",
+      info,
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: primaryColor.withOpacity(0.3),
+      margin: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
     );
   }
 }

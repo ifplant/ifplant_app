@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:ifplant_app/app/controller/controllers.dart';
 import 'package:ifplant_app/app/ui/android/appBar/captured_page_appbar.dart';
@@ -9,7 +8,7 @@ import 'package:ifplant_app/app/ui/theme/app_color.dart';
 import 'package:ifplant_app/app/ui/theme/app_text_theme.dart';
 
 class CapturedPage extends StatefulWidget {
-  CapturedPage({Key? key}) : super(key: key);
+  const CapturedPage({Key? key}) : super(key: key);
 
   @override
   State<CapturedPage> createState() => _CapturedPageState();
@@ -17,14 +16,11 @@ class CapturedPage extends StatefulWidget {
 
 class _CapturedPageState extends State<CapturedPage> {
   late CapturedPageController controller;
-  late FToast fToast;
 
   @override
   void initState() {
     super.initState();
     controller = Get.put(CapturedPageController());
-    fToast = FToast();
-    fToast.init(context);
   }
 
   @override
@@ -50,22 +46,20 @@ class _CapturedPageState extends State<CapturedPage> {
                   controller.captureScreen().then(
                     (_) {
                       Get.back();
-                      fToast.showToast(
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 24.0, vertical: 12.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30.0),
-                            color: Colors.redAccent.withOpacity(0.5),
-                          ),
-                          child: const Center(
+                      Get.snackbar("", "",
+                          titleText: Container(),
+                          messageText: const Center(
                             child: Text(
                               "사진이 저장 되었습니다",
                               style: sucessToastTextStyle,
                             ),
                           ),
-                        ),
-                      );
+                          snackPosition: SnackPosition.BOTTOM,
+                          backgroundColor: Colors.redAccent.withOpacity(0.1),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          margin: const EdgeInsets.only(
+                              bottom: 10, left: 10, right: 10),
+                          borderRadius: 30.0);
                     },
                   );
                 },
