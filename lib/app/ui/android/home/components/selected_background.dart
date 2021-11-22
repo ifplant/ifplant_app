@@ -5,7 +5,7 @@ import 'package:ifplant_app/app/ui/android/home/components.dart'
     show DraggablePlant;
 import 'package:get/get.dart';
 
-class SelectedBackgound extends StatelessWidget {
+class SelectedBackgound extends GetWidget<HomeController> {
   const SelectedBackgound({
     Key? key,
   }) : super(key: key);
@@ -23,42 +23,41 @@ class SelectedBackgound extends StatelessWidget {
           height: Get.size.width * 0.85,
           child: DragTarget(
             builder: (context, candiated, rejected) {
-              return GetBuilder<HomeController>(
-                builder: (controller) =>
-                    controller.selectedImage.path.isNotEmpty
-                        ? Stack(
-                            children: [
-                              SizedBox(
-                                height: Get.size.width * 0.85,
-                                width: Get.size.width * 0.85,
-                                child: Image.file(
-                                  controller.selectedImage,
-                                  fit: BoxFit.cover,
-                                ),
+              return Obx(
+                () => controller.selectedImage.path.isEmpty
+                    ? Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              icon: const Icon(
+                                Icons.add,
+                                size: 40,
                               ),
-                              ...List.generate(
-                                controller.dragedPlants.length,
-                                (index) => DraggablePlant(
-                                  plant: controller.dragedPlants[index],
-                                ),
-                              ),
-                            ],
-                          )
-                        : Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.add,
-                                    size: 40,
-                                  ),
-                                  onPressed: () => controller.pickSingleImage(),
-                                ),
-                                const Text('배경 고르기'),
-                              ],
+                              onPressed: () => controller.pickSingleImage(),
+                            ),
+                            const Text('배경 고르기'),
+                          ],
+                        ),
+                      )
+                    : Stack(
+                        children: [
+                          SizedBox(
+                            height: Get.size.width * 0.85,
+                            width: Get.size.width * 0.85,
+                            child: Image.file(
+                              controller.selectedImage,
+                              fit: BoxFit.cover,
                             ),
                           ),
+                          ...List.generate(
+                            controller.dragedPlants.length,
+                            (index) => DraggablePlant(
+                              plant: controller.dragedPlants[index],
+                            ),
+                          ),
+                        ],
+                      ),
               );
             },
             onWillAccept: (data) {

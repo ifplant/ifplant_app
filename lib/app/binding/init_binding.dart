@@ -7,7 +7,7 @@ class InitBinding implements Bindings {
   @override
   void dependencies() {
     Get.put(InitController(), permanent: true);
-    Get.put(HomeController(), permanent: true);
     Get.put(DataBaseController(), permanent: true);
+    Get.put(HomeController(), permanent: true);
   }
 }

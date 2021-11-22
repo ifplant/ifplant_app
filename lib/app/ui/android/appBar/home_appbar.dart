@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ifplant_app/app/controller/home/home_controller.dart';
 import 'package:ifplant_app/app/route/app_pages.dart';
-import 'package:ifplant_app/app/ui/theme/app_color.dart';
 import 'package:ifplant_app/app/ui/theme/app_text_theme.dart';
 
 final AppBar homeAppBar = AppBar(
-  backgroundColor: backgroundColor,
   elevation: 0.0,
   centerTitle: true,
   titleSpacing: 0,
