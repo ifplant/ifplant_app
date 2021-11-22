@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'ui/android/screens.dart' show Home;
 
 class Root extends StatelessWidget {

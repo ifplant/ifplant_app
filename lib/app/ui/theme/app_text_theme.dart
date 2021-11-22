@@ -34,3 +34,15 @@ const TextStyle minimalTextStyle = TextStyle(
   fontWeight: FontWeight.w700,
   fontFamily: 'Noto_Serif_KR',
 );
+
+const TextStyle buttonTextStyle = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.w700,
+  fontFamily: 'Noto_Serif_KR',
+);
+
+const TextStyle sucessToastTextStyle = TextStyle(
+  fontSize: 21,
+  fontWeight: FontWeight.w700,
+  fontFamily: 'NoTo_Serif_KR',
+);
