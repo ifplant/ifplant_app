@@ -23,7 +23,7 @@ class IfPlantApp extends StatelessWidget {
         canvasColor: backgroundColor,
       ),
       initialBinding: InitBinding(),
-      initialRoute: '/',
+      initialRoute: '/splash',
       getPages: AppPages.pages,
     );
   }
