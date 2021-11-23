@@ -11,17 +11,22 @@ class InitController extends GetxController {
   }
 
   _requestPermission() async {
-    Map<Permission, PermissionStatus> statuses = await [
-      Permission.storage,
-    ].request();
+    var status = await Permission.storage.status;
 
-    final info = statuses[Permission.storage].toString();
-    Get.snackbar(
-      "Permission Grant",
-      info,
-      snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: primaryColor.withOpacity(0.3),
-      margin: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
-    );
+    if (status.isDenied) {
+      Map<Permission, PermissionStatus> statuses = await [
+        Permission.storage,
+      ].request();
+
+      final info = statuses[Permission.storage].toString();
+      Get.snackbar(
+        "Permission Grant",
+        info,
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: primaryColor.withOpacity(0.3),
+        margin: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
+        duration: const Duration(seconds: 4),
+      );
+    }
   }
 }

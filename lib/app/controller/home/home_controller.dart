@@ -100,6 +100,7 @@ class HomeController extends GetxController {
               lockAspectRatio: false),
         );
         _selectedImage(croppedFile);
+        _dragedPlants.clear();
         update();
       }
     });
