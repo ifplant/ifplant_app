@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:ifplant_app/app/data/model/home/plant_model.dart';
 import 'package:ifplant_app/app/ui/android/select_detail/components/build_bottom_sheet.dart';
 import 'package:ifplant_app/app/ui/theme/app_color.dart';
+import 'package:ifplant_app/app/ui/theme/app_text_theme.dart';
 import 'package:intl/intl.dart';
 
 class ShowBottomAppBar extends StatelessWidget {
@@ -48,7 +49,24 @@ class ShowBottomAppBar extends StatelessWidget {
                           builder: (context) => _show
                               ? const Text('데이터가 존재하지 않습니다.')
                               : BuildBottomSheet(plant: plant),
-                        ).then((value) => Get.back());
+                        ).then((value) => Get.back()).then(
+                              (value) => Get.snackbar(
+                                "",
+                                "",
+                                titleText: Container(),
+                                backgroundColor: primaryColor.withOpacity(0.4),
+                                messageText: Center(
+                                  child: Text(
+                                    "${plant.name} 화분이 추가되었습니다!",
+                                    style: snackBarMiniTextStyle,
+                                  ),
+                                ),
+                                margin: const EdgeInsets.only(
+                                    bottom: 10, left: 10, right: 10),
+                                padding: const EdgeInsets.only(bottom: 10),
+                                snackPosition: SnackPosition.BOTTOM,
+                              ),
+                            );
                       },
                     ),
                   ),

@@ -46,3 +46,9 @@ const TextStyle sucessToastTextStyle = TextStyle(
   fontWeight: FontWeight.w700,
   fontFamily: 'NoTo_Serif_KR',
 );
+
+const snackBarMiniTextStyle = TextStyle(
+  fontFamily: 'NoTo_Serif_KR',
+  color: Colors.white,
+  fontWeight: FontWeight.w700,
+);
