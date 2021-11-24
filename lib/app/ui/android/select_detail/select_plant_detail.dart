@@ -24,23 +24,22 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
     return Scaffold(
         appBar: selectPlantDetailAppbar(plantItem),
         body: SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
           child: Column(
             children: [
-              SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 112),
-                    Center(
-                      child: Container(
-                        width: 288,
-                        height: 290,
-                        child: Image.memory(plantItem.image),
-                      ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 112),
+                  Center(
+                    child: Container(
+                      width: 288,
+                      height: 290,
+                      child: Image.memory(plantItem.image),
                     ),
-                    const SizedBox(height: 85),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 85),
+                ],
               ),
             ],
           ),

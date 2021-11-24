@@ -13,7 +13,6 @@ class AppPages {
     GetPage(
       name: Routes.SPLASH,
       page: () => const SplashScreen(),
-      transition: Transition.fade,
     ),
     GetPage(
       name: Routes.INITIAL,
@@ -22,17 +21,17 @@ class AppPages {
     ),
     GetPage(
       name: Routes.PLANTLIST,
-      page: () => SelectPlant(),
+      page: () => const SelectPlant(),
       transition: Transition.fade,
     ),
     GetPage(
       name: Routes.PLANTDETAIL,
-      page: () => SelectPlantDetail(),
+      page: () => const SelectPlantDetail(),
       transition: Transition.fade,
     ),
     GetPage(
       name: Routes.CAPTURED_PAGE,
-      page: () => CapturedPage(),
+      page: () => const CapturedPage(),
       transition: Transition.fade,
     ),
   ];
