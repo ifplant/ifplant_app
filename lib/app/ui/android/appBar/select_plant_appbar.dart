@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:ifplant_app/app/route/app_pages.dart';
 import 'package:ifplant_app/app/ui/theme/app_text_theme.dart';
 
 final AppBar selectPlantAppbar = AppBar(
   leading: InkWell(
     onTap: () {
-      Get.back();
+      Get.offAndToNamed(Routes.INITIAL);
     },
     child: Padding(
       padding: const EdgeInsets.all(12.0),
