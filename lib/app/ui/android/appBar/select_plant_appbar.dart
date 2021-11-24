@@ -7,7 +7,7 @@ import 'package:ifplant_app/app/ui/theme/app_text_theme.dart';
 final AppBar selectPlantAppbar = AppBar(
   leading: InkWell(
     onTap: () {
-      Get.offAndToNamed(Routes.INITIAL);
+      Get.offAllNamed(Routes.INITIAL);
     },
     child: Padding(
       padding: const EdgeInsets.all(12.0),
