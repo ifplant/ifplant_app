@@ -20,7 +20,7 @@ class ShowBottomAppBar extends StatelessWidget {
       ),
       child: BottomAppBar(
           elevation: 10.0,
-          child: Container(
+          child: SizedBox(
             height: 100,
             child: Column(
               children: [
@@ -44,25 +44,28 @@ class ShowBottomAppBar extends StatelessWidget {
                         ),
                         context: context,
                         builder: (context) => BuildBottomSheet(plant: plant),
-                      ).then((value) => Get.back()).then(
-                            (value) => Get.snackbar(
-                              "",
-                              "",
-                              titleText: Container(),
-                              backgroundColor: primaryColor.withOpacity(0.4),
-                              messageText: Center(
-                                child: Text(
-                                  "${plant.name} 화분이 추가되었습니다!",
-                                  style: snackBarMiniTextStyle,
-                                ),
+                      ).then((result) {
+                        if (result != null && result) {
+                          Get.back();
+                          Get.snackbar(
+                            "",
+                            "",
+                            titleText: Container(),
+                            backgroundColor: primaryColor.withOpacity(0.4),
+                            messageText: Center(
+                              child: Text(
+                                "${plant.name} 화분이 추가되었습니다!",
+                                style: snackBarMiniTextStyle,
                               ),
-                              margin: const EdgeInsets.only(
-                                  bottom: 10, left: 10, right: 10),
-                              padding: const EdgeInsets.only(bottom: 10),
-                              snackPosition: SnackPosition.BOTTOM,
-                              duration: const Duration(milliseconds: 1000),
                             ),
+                            margin: const EdgeInsets.only(
+                                bottom: 10, left: 10, right: 10),
+                            padding: const EdgeInsets.only(bottom: 10),
+                            snackPosition: SnackPosition.BOTTOM,
+                            duration: const Duration(milliseconds: 1000),
                           );
+                        }
+                      });
                     },
                   ),
                 ),

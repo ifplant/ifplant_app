@@ -8,6 +8,7 @@ final AppBar homeAppBar = AppBar(
   elevation: 0.0,
   centerTitle: true,
   titleSpacing: 0,
+  automaticallyImplyLeading: false,
   title: Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [

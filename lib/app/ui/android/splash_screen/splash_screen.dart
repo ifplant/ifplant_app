@@ -18,15 +18,9 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(
       const Duration(seconds: 3),
-      () => Navigator.pushReplacement(
-        context,
-        PageRouteBuilder(
-          pageBuilder: (c, a1, a2) => const Root(),
-          transitionsBuilder: (c, anim, a2, child) =>
-              FadeTransition(opacity: anim, child: child),
-          transitionDuration: const Duration(milliseconds: 800),
-        ),
-      ),
+      () => Get.off(() => const Root(),
+          duration: const Duration(milliseconds: 1200),
+          transition: Transition.fadeIn),
     );
   }
 

@@ -26,13 +26,16 @@ class BuildBottomSheet extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Transform.rotate(
-            angle: (180 * math.pi) / 180,
-            child: SvgPicture.asset(
-              'assets/icon/arrow_less.svg',
-              width: 24,
-              height: 24,
+          InkWell(
+            child: Transform.rotate(
+              angle: (180 * math.pi) / 180,
+              child: SvgPicture.asset(
+                'assets/icon/arrow_less.svg',
+                width: 24,
+                height: 24,
+              ),
             ),
+            onTap: () => Get.back(result: false),
           ),
           Column(
             children: [
@@ -125,7 +128,7 @@ class BuildBottomSheet extends StatelessWidget {
                                   id: HomeController.to.selectedIdCount,
                                   image: plant.image),
                             );
-                            Get.back();
+                            Get.back(result: true);
                           },
                           child: const Text(
                             '화분추가',

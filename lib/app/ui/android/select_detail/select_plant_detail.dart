@@ -32,7 +32,7 @@ class _SelectPlantDetailState extends State<SelectPlantDetail> {
                 children: [
                   const SizedBox(height: 112),
                   Center(
-                    child: Container(
+                    child: SizedBox(
                       width: 288,
                       height: 290,
                       child: Image.memory(plantItem.image),

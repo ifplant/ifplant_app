@@ -19,15 +19,15 @@ class Home extends GetWidget<HomeController> {
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SelectedBackgound(),
-            const SizedBox(height: 16),
-            const Padding(
+          children: const <Widget>[
+            SelectedBackgound(),
+            SizedBox(height: 16),
+            Padding(
               padding: EdgeInsets.only(left: 12),
               child: Text('내 화분', style: minimalTextStyle),
             ),
-            const SizedBox(height: 16),
-            const SelectedPlantList()
+            SizedBox(height: 16),
+            SelectedPlantList()
           ],
         ),
       ),
