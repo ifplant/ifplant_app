@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:ifplant_app/app/binding/init_binding.dart';
 import 'package:ifplant_app/app/route/app_pages.dart';
+import 'package:ifplant_app/app/ui/theme/app_color.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const IfPlantApp());
 }
@@ -14,12 +15,15 @@ class IfPlantApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'IfPlant App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        appBarTheme: const AppBarTheme(backgroundColor: backgroundColor),
+        primaryColor: backgroundColor,
+        canvasColor: backgroundColor,
       ),
       initialBinding: InitBinding(),
-      initialRoute: '/',
+      initialRoute: '/splash',
       getPages: AppPages.pages,
     );
   }
