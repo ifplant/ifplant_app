@@ -1,14 +1,16 @@
 # `IfPlant` : 당신의 반려식물을 움직여보세요
 
-한번 구매하면 처리하기 어려운 `반려식물`을 가상으로 `원하는 장소`에 미리 배치해보면서 어울리는지 판단해보고, 합리적으로 구매할 수 있게 도와줄게요. <br/>
+![Frame 55](https://user-images.githubusercontent.com/77275707/144453533-87f10668-c7d0-4e22-8212-0365852b6cc9.png)<br/>
+한번 구매하면 처리하기 어려운 `반려식물`을 가상으로 `원하는 장소`에 미리 배치해보고, 합리적으로 구매할 수 있게 도와줄게요. <br/>
 [@플레이스토어 바로가기](https://play.google.com/store/apps/details?id=com.ifplant_app)
 
 ## 화면
-![Apple iPhone 8 Plus Screenshot 5](https://user-images.githubusercontent.com/77275707/144294841-9916d29a-caa1-4532-91aa-2f4ca0e2fb5b.png)
-![Apple iPhone 8 Plus Screenshot 6](https://user-images.githubusercontent.com/77275707/144294867-44b6249f-1327-4c70-94de-0aa18bf9bca6.png)
-![Apple iPhone 8 Plus Screenshot 7](https://user-images.githubusercontent.com/77275707/144294873-775c1acb-0bc1-445a-b95f-5cd11a606e73.png)
-![Apple iPhone 8 Plus Screenshot 8](https://user-images.githubusercontent.com/77275707/144294883-f8721d97-2a30-41a3-bf7c-8ffb3e4b5d7d.png)
 
+
+![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/77275707/144456189-dae544fa-b439-4a43-8bab-3512fe47d2e2.gif)
+![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/77275707/144456323-f0af4c33-99a7-45c6-8747-d69906971b80.gif)
+![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/77275707/144456451-ab959da1-561f-42a2-8d6c-81547dd4016e.gif)
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/77275707/144456487-c9fdfe23-09dc-4027-9b81-04bfb8665b12.gif)
 
 
 ## Library
