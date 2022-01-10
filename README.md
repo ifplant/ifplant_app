@@ -2,9 +2,10 @@
 
 ![Frame 55](https://user-images.githubusercontent.com/77275707/144453533-87f10668-c7d0-4e22-8212-0365852b6cc9.png)<br/>
 한번 구매하면 처리하기 어려운 `반려식물`을 가상으로 `원하는 장소`에 미리 배치해보고, 합리적으로 구매할 수 있게 도와줄게요. <br/>
-[@플레이스토어 바로가기](https://play.google.com/store/apps/details?id=com.ifplant_app)
 
 [![Codemagic build status](https://api.codemagic.io/apps/61dbc724d700448d6bce6649/61dbc724d700448d6bce6648/status_badge.svg)](https://codemagic.io/apps/61dbc724d700448d6bce6649/61dbc724d700448d6bce6648/latest_build)
+
+<a href='https://play.google.com/store/apps/details?id=com.ifplant_app&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='다운로드하기 Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/ko_badge_web_generic.png' height="80" width="200"/></a>
 
 ## 화면
 
