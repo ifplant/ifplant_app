@@ -4,6 +4,8 @@
 한번 구매하면 처리하기 어려운 `반려식물`을 가상으로 `원하는 장소`에 미리 배치해보고, 합리적으로 구매할 수 있게 도와줄게요. <br/>
 [@플레이스토어 바로가기](https://play.google.com/store/apps/details?id=com.ifplant_app)
 
+[![Codemagic build status](https://api.codemagic.io/apps/61dbc724d700448d6bce6649/61dbc724d700448d6bce6648/status_badge.svg)](https://codemagic.io/apps/61dbc724d700448d6bce6649/61dbc724d700448d6bce6648/latest_build)
+
 ## 화면
 
 
